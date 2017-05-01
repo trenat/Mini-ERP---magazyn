@@ -13,5 +13,9 @@ namespace MiniERP_desktop
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            InitializeComponent();
+        }
     }
 }

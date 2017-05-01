@@ -7,7 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--<local:HeaderView Grid.ColumnSpan="2" />-->
 
+        <!--<local:ButtonsView Grid.Row="1" Margin="6,6,3,6" />-->
+
+        <!--<local:LoginView Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+        <Button Name="btnExit" Width="75" 
+
+  Height="45" Command="{Binding ExitCommand}" Margin="675,38,42,486" >Exit</Button>
     </Grid>
 </Window>

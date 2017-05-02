@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MiniERP_desktop.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
         BorderBrush="{DynamicResource AccentColorBrush}"
         BorderThickness="1"
@@ -14,17 +15,17 @@
         <ImageBrush ImageSource="/MiniERP desktop;component/Images/images (1).jpg"></ImageBrush>
     </controls:MetroWindow.Background>
     <Grid>
-        <Ellipse Width="140" Height="140"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,170">
+        <Ellipse Width="140" Height="140"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,170" OpacityMask="#FFA8B6B9">
             <Ellipse.Fill>
                 <ImageBrush  ImageSource="/MiniERP desktop;component/Images/FaceDefault.jpg"/>
             </Ellipse.Fill>
 
         </Ellipse>
-        <TextBox Padding="20,0,0,0" controls:TextBoxHelper.ClearTextButton="True" controls:TextBoxHelper.Watermark="Username.." HorizontalAlignment="Left" Height="23" Margin="146,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
-        <TextBox Padding="20,0,0,0" controls:TextBoxHelper.ClearTextButton="True" controls:TextBoxHelper.Watermark="Password.." HorizontalAlignment="Left" Height="23" Margin="146,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="Username" Padding="20,0,0,0" controls:TextBoxHelper.ClearTextButton="True" controls:TextBoxHelper.Watermark="Username.." HorizontalAlignment="Left" Height="23" Margin="146,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+        <PasswordBox x:Name="Password" Padding="20,0,0,0" controls:TextBoxHelper.ClearTextButton="True" controls:PasswordBoxHelper.CapsLockWarningToolTip="True" controls:TextBoxHelper.Watermark="Password.." HorizontalAlignment="Left" Height="23" Margin="146,330,0,0" VerticalAlignment="Top" Width="200"/>
         <Button x:Name="Login" Content="Login" HorizontalAlignment="Left" Margin="176,391,0,0" VerticalAlignment="Top" Width="140"/>
         <Image Source="/MiniERP desktop;component/Images/GMICImage.png" HorizontalAlignment="Left" Height="15" Margin="150,336,0,0" VerticalAlignment="Top" Width="15" UseLayoutRounding="False" OpacityMask="#FFA9B7B7"/>
-        <Image Source="/MiniERP desktop;component/Images/FaceTile.jpg" HorizontalAlignment="Left" Height="15" Margin="150,278,0,0" VerticalAlignment="Top" Width="15" UseLayoutRounding="False" OpacityMask="#FFA9B7B7"/>
+        <Image Source="/MiniERP desktop;component/Images/male-profile-user-shadow_318-40244.png" HorizontalAlignment="Left" Height="15" Margin="150,278,0,0" VerticalAlignment="Top" Width="15" UseLayoutRounding="False" OpacityMask="#FFA9B7B7"/>
 
     </Grid>
 </controls:MetroWindow>

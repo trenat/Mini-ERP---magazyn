@@ -7,16 +7,83 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="hbnjhjnnj" Height="300" Width="300"
+        Title="hbnjhjnnj" Height="500" Width="700"
         TitleCharacterCasing ="Normal"
         BorderBrush="{DynamicResource AccentColorBrush}"
         BorderThickness="1"
         WindowStartupLocation="CenterScreen">
     <DockPanel>
-        <Button x:Name="OpenTab"
+        <!--<Button x:Name="OpenTab"
                 Content="Open Tab" 
-                DockPanel.Dock="Top" />
-        <TabControl x:Name="Items">
+                DockPanel.Dock="Top" />-->
+        <ToolBarPanel DockPanel.Dock="Top" Height="35">
+            <ToolBarPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE7ECF2" Offset="0"/>
+                    <GradientStop Color="#FFD1D8E0" Offset="1"/>
+                </LinearGradientBrush>
+            </ToolBarPanel.Background>
+            <ToolBarPanel.Children>
+                <Button x:Name="Settings" Height="20" Width="23" Margin="5,5,5,0" HorizontalAlignment="Right" Focusable="False">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFF5FAFD"/>
+                            <GradientStop Color="#FFBCC4CC" Offset="1"/>
+                            <GradientStop Color="#FFE6EBEF" Offset="0.259"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                    <Button.Content>
+                        <Image Width="16" Margin="-2.5" Source="/MiniERP desktop;component/Images/settings-icon.png"/>
+                    </Button.Content>
+                </Button>
+            </ToolBarPanel.Children>
+        </ToolBarPanel>
+        <DockPanel DockPanel.Dock="Left" Background="LightSteelBlue">
+            <StackPanel DockPanel.Dock="Top">
+                <Button Margin="10,10,10,0" x:Name="Home">
+                    <Button.Content>
+                        <DockPanel>
+                            <Image Source="/MiniERP desktop;component/Images/home-icon.png" Width="48" Height="37"/>
+                            <Label Margin="-5,0,0,0" FontSize="14" Content="Home" DockPanel.Dock="Right" Height="30"/>
+                        </DockPanel>
+                    </Button.Content>
+                </Button>
+                <Button Margin="10,10,10,0" x:Name="Account">
+                    <Button.Content>
+                        <DockPanel>
+                            <Image Source="/MiniERP desktop;component/Images/man-2-icon.png" Width="48" Height="37"/>
+                            <Label Margin="-5,0,0,0" FontSize="13" Content="Account" DockPanel.Dock="Right" Height="28"/>
+                        </DockPanel>
+                    </Button.Content>
+                </Button>
+                <Button Margin="10,10,10,0" x:Name="Storage">
+                    <Button.Content>
+                        <DockPanel>
+                            <Image Margin="-2,-2,-2,-2" Source="/MiniERP desktop;component/Images/storage-icon-6640.png" Width="53" Height="39"/>
+                            <Label Margin="-5,0,0,0" FontSize="13" Content="Storage" DockPanel.Dock="Right" Height="28"/>
+                        </DockPanel>
+                    </Button.Content>
+                </Button>
+                <DockPanel>
+
+                </DockPanel>
+
+
+            </StackPanel>
+            <Button Margin="10,10,10,10" x:Name="Logout" DockPanel.Dock="Top" VerticalAlignment="Bottom">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Margin="-2,-2,-2,-2" Source="/MiniERP desktop;component/Images/logout (1).png" Width="53" Height="39"/>
+                        <Label Margin="-5,0,0,0" FontSize="13" Content="Log out" DockPanel.Dock="Right" Height="28"/>
+                    </DockPanel>
+                </Button.Content>
+            </Button>
+        </DockPanel>
+        <ContentControl x:Name="Content">
+
+        </ContentControl>
+
+        <!--<TabControl x:Name="Items">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -26,6 +93,7 @@
                     </StackPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
-        </TabControl>
+
+        </TabControl>-->
     </DockPanel>
 </controls:MetroWindow>

@@ -24,6 +24,7 @@ namespace MiniERP_desktop
 
             container.Instance(container);
 
+
             container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>();

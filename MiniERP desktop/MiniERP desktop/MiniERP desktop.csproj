@@ -85,6 +85,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -107,6 +109,69 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Database\Build.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\BuildType.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Company.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Cordinate.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Customer.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DetailRow.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Inventory.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Invoice.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\InvoiceItem.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Item.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MyDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MyDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MyDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Object.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ObjectType.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Paragraph.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sysdiagrams.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\TotalRow.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\User.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\DetailRow.cs" />
     <Compile Include="Models\Invoice.cs" />
@@ -187,6 +252,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="Database\MyDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MyDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Database\MyDb.edmx.diagram">
+      <DependentUpon>MyDb.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -249,6 +321,19 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Database\MyDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyDb.edmx</DependentUpon>
+      <LastGenOutput>MyDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Database\MyDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyDb.edmx</DependentUpon>
+      <LastGenOutput>MyDb.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

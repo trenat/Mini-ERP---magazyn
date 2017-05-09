@@ -15,6 +15,7 @@
         public static ItemRow Make(string name, string description, decimal amount, decimal vat, decimal price, decimal total)
         {
             return Make(name, description, amount, vat, price, "", total);
+           
         }
 
         public static ItemRow Make(string name, string description, decimal amount, decimal vat, decimal price, string discount, decimal total)

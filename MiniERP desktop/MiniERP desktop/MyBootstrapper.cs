@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
@@ -12,7 +9,7 @@ namespace MiniERP_desktop
 {
     public class MyBootstrapper: BootstrapperBase
     {
-        private SimpleContainer container;
+        private SimpleContainer _container;
 
         public MyBootstrapper()
         {
@@ -20,16 +17,16 @@ namespace MiniERP_desktop
         }
         protected override void Configure()
         {
-            container = new SimpleContainer();
+            _container = new SimpleContainer();
 
-            container.Instance(container);
+            _container.Instance(_container);
 
-
-            container
+            
+            _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>();
 
-            container
+            _container
                 .PerRequest<LoginViewModel>(); 
             //.PerRequest<MenuViewModel>()
             //.PerRequest<BindingsViewModel>()
@@ -49,17 +46,17 @@ namespace MiniERP_desktop
         }
         protected override object GetInstance(Type service, string key)
         {
-            return container.GetInstance(service, key);
+            return _container.GetInstance(service, key);
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
-            return container.GetAllInstances(service);
+            return _container.GetAllInstances(service);
         }
 
         protected override void BuildUp(object instance)
         {
-            container.BuildUp(instance);
+            _container.BuildUp(instance);
         }
 
         protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

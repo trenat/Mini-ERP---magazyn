@@ -67,6 +67,12 @@
                 <DockPanel>
 
                 </DockPanel>
+                <Button Margin="10,10,10,0" x:Name="Reports">
+                    <DockPanel>
+                        <Image Margin="-2,-2,-2,-2" Source="/MiniERP desktop;component/Images/invoices-icon-22.png" Width="53" Height="39"/>
+                        <Label Margin="-5,0,0,0" FontSize="13" Content="Reports" DockPanel.Dock="Right" Height="28"/>
+                    </DockPanel>
+                </Button>
 
 
             </StackPanel>
@@ -79,7 +85,7 @@
                 </Button.Content>
             </Button>
         </DockPanel>
-        <ContentControl x:Name="Content">
+        <ContentControl x:Name="ControlContent">
 
         </ContentControl>
 

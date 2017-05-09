@@ -9,15 +9,15 @@ namespace MiniERP_desktop.ViewModels
 
         private readonly WindowManager _windowManager;
         private readonly SimpleContainer _container;
-        private object _content;
+        private object _controlContent;
 
-        public object Content
+        public object ControlContent
         {
-            get => _content;
+            get => _controlContent;
             set
             {
-                _content = value;
-                NotifyOfPropertyChange(()=>Content);
+                _controlContent = value;
+                NotifyOfPropertyChange(()=> ControlContent);
             }
         }
 
@@ -25,7 +25,12 @@ namespace MiniERP_desktop.ViewModels
         {
             _container = container;
             _windowManager = container.GetInstance<WindowManager>();
-            
+        }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            this.DisplayName = "Storage ERP";
         }
 
         public void OpenTab()
@@ -41,10 +46,19 @@ namespace MiniERP_desktop.ViewModels
         {
             MessageBox.Show("Settings");
         }
+
         public void Storage()
         {
+            
+            ControlContent = new StorageViewModel()
+            {
+                DisplayName = "Tab " + count++
+            };
+        }
 
-            Content = new StorageViewModel()
+        public void Reports()
+        {
+            ControlContent = new ReportsViewModel()
             {
                 DisplayName = "Tab " + count++
             };
@@ -54,11 +68,6 @@ namespace MiniERP_desktop.ViewModels
         {
             _windowManager.ShowWindow(new LoginViewModel(_container));
             this.TryClose();
-        }
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            this.DisplayName = "Storage ERP";
         }
 
         public void CloseItem(Screen screen)

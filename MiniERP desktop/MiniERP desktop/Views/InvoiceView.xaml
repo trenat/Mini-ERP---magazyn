@@ -25,7 +25,7 @@
         <TextBlock Grid.Column="0" Text="Due Time" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,203,0,0"/>
         <TextBlock Grid.Column="0" Text="Client" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,225,0,0"/>
         <TextBlock Grid.Column="0" Text="Company" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,247,0,0"/>
-        <TextBlock Grid.Column="0" Text="Company Orientation" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,269,0,0"/>
+        <TextBlock Grid.Column="0" Text="Company Orientatio00000n" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,269,0,0"/>
         <TextBlock Grid.Column="0" Text="Details" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,291,0,-7"/>
         <TextBlock Grid.Column="0" Text="Footer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,313,0,0"/>
         <TextBlock Grid.Column="0" Text="Items" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,334,0,0"/>

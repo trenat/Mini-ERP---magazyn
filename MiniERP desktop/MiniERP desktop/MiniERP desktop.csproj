@@ -114,6 +114,7 @@
     <Compile Include="Models\Options.cs" />
     <Compile Include="Models\TotalRow.cs" />
     <Compile Include="MyBootstrapper.cs" />
+    <Compile Include="Services\PasswordHasher.cs" />
     <Compile Include="Services\PdfInvoice.cs" />
     <Compile Include="TabView.xaml.cs">
       <DependentUpon>TabView.xaml</DependentUpon>

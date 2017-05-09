@@ -15,7 +15,7 @@
         <ImageBrush ImageSource="/MiniERP desktop;component/Images/images (1).jpg"></ImageBrush>
     </controls:MetroWindow.Background>
     <Grid>
-        <Ellipse Width="140" Height="140"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,170" OpacityMask="#FFA8B6B9">
+        <Ellipse Width="100" Height="100"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" OpacityMask="#FFA8B6B9">
             <Ellipse.Fill>
                 <ImageBrush  ImageSource="/MiniERP desktop;component/Images/FaceDefault.jpg"/>
             </Ellipse.Fill>

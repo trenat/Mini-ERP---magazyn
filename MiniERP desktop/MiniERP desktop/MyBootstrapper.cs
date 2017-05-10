@@ -1,31 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using Caliburn.Micro;
+using MiniERP_desktop.Database;
+using MiniERP_desktop.Helpers;
+using MiniERP_desktop.Services;
 using MiniERP_desktop.ViewModels;
+
 
 namespace MiniERP_desktop
 {
-    public class MyBootstrapper: BootstrapperBase
+    public sealed class MyBootstrapper: BootstrapperBase
     {
         private SimpleContainer _container;
-
+//        private MyDbContext
         public MyBootstrapper()
         {
             Initialize();
+            ConventionManager.AddElementConvention<PasswordBox>(
+                PasswordBoxHelper.BoundPasswordProperty,
+                "Password",
+                "PasswordChanged");
         }
         protected override void Configure()
         {
-            _container = new SimpleContainer();
-
-            _container.Instance(_container);
-
             
+            
+                
+              _container = new SimpleContainer();
+
+            //using (ERPEntities e = new ERPEntities())
+            //{
+            //    e.User.Add(new User()
+            //    {
+            //        Age = 15,
+            //        Email = "dawiddo14@gmail.com",
+            //        FirstName = "Dawid",
+            //        Gender = true,
+            //        HashPassword = PasswordHasher.HashPassword("123456"),
+            //        LastName = "Sitek",
+            //        Login = "Admin",
+            //        Phone = "575079835",
+            //        isAdmin = true
+            //    });
+            //    e.SaveChanges();
+
+            //}
+
+                _container.Instance(_container);
+
+            ERPEntities dbContext = new ERPEntities();
+
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>();
-
+                //.
+            _container.Instance<ERPEntities>(dbContext);
             _container
                 .PerRequest<LoginViewModel>(); 
             //.PerRequest<MenuViewModel>()

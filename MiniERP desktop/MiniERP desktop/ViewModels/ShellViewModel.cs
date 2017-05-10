@@ -1,16 +1,19 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
+using MiniERP_desktop.Database;
 
 namespace MiniERP_desktop.ViewModels
 {
     public class ShellViewModel : Conductor<IScreen>.Collection.OneActive
     {
-        int count = 1;
-
         private readonly WindowManager _windowManager;
         private readonly SimpleContainer _container;
+        private readonly User _currentUser; 
         private object _controlContent;
-
+        public User CurrentUser
+        {
+            get => _currentUser;
+        }
         public object ControlContent
         {
             get => _controlContent;
@@ -21,9 +24,10 @@ namespace MiniERP_desktop.ViewModels
             }
         }
 
-        public ShellViewModel(SimpleContainer container)
+        public ShellViewModel(SimpleContainer container, User user)
         {
             _container = container;
+            _currentUser = user;
             _windowManager = container.GetInstance<WindowManager>();
         }
 
@@ -36,10 +40,10 @@ namespace MiniERP_desktop.ViewModels
         public void OpenTab()
         {
             
-            ActivateItem(new TabViewModel
-            {
-                DisplayName = "Tab " + count++
-            });
+            //ActivateItem(new TabViewModel
+            //{
+            //    DisplayName = "Ta
+            //});
         }
 
         public void Settings()
@@ -47,12 +51,24 @@ namespace MiniERP_desktop.ViewModels
             MessageBox.Show("Settings");
         }
 
+        public void Account()
+        {
+            if (_currentUser.isAdmin)
+            {
+                
+            }
+            else
+            {
+                
+            }
+        }
+
         public void Storage()
         {
             
             ControlContent = new StorageViewModel()
             {
-                DisplayName = "Tab " + count++
+                DisplayName = "Tab "// + count++
             };
         }
 
@@ -60,13 +76,13 @@ namespace MiniERP_desktop.ViewModels
         {
             ControlContent = new ReportsViewModel()
             {
-                DisplayName = "Tab " + count++
+                DisplayName = "Tab "// + count++
             };
         }
 
         public void Logout()
         {
-            _windowManager.ShowWindow(new LoginViewModel(_container));
+            //_windowManager.ShowWindow(new LoginViewModel(_container));
             this.TryClose();
         }
 

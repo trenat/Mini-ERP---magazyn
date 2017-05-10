@@ -172,6 +172,7 @@
     <Compile Include="Database\User.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\DetailRow.cs" />
     <Compile Include="Models\Invoice.cs" />

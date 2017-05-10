@@ -115,8 +115,6 @@ namespace QR_Code
             if (qrcodes.Size() != 0)
             {
                 txtResult.Post(() => {
-                    Vibrator vib = (Vibrator)GetSystemService(Context.VibratorService);
-                    vib.Vibrate(1000);
                     txtResult.Text = ((Barcode)qrcodes.ValueAt(0)).RawValue;
                 });
             }

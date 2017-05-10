@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("MobileApp_alpha_v0._0._0._0._1.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("VisionSample.Resource", IsApplication=true)]
 
-namespace MobileApp_alpha_v0._0._0._0._1
+namespace VisionSample
 {
 	
 	
@@ -60,8 +60,23 @@ namespace MobileApp_alpha_v0._0._0._0._1
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050005
+			public const int buttonBarcode = 2131034117;
+			
+			// aapt resource value: 0x7f050003
+			public const int buttonFaceTracker = 2131034115;
+			
+			// aapt resource value: 0x7f050004
+			public const int buttonPhotoFace = 2131034116;
+			
+			// aapt resource value: 0x7f050002
+			public const int faceOverlay = 2131034114;
+			
+			// aapt resource value: 0x7f050001
+			public const int preview = 2131034113;
+			
 			// aapt resource value: 0x7f050000
-			public const int MyButton = 2131034112;
+			public const int topLayout = 2131034112;
 			
 			static Id()
 			{
@@ -77,7 +92,10 @@ namespace MobileApp_alpha_v0._0._0._0._1
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int FaceTracker = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int Main = 2130903041;
 			
 			static Layout()
 			{
@@ -93,10 +111,10 @@ namespace MobileApp_alpha_v0._0._0._0._1
 		{
 			
 			// aapt resource value: 0x7f040001
-			public const int ApplicationName = 2130968577;
+			public const int app_name = 2130968577;
 			
 			// aapt resource value: 0x7f040000
-			public const int Hello = 2130968576;
+			public const int hello = 2130968576;
 			
 			static String()
 			{

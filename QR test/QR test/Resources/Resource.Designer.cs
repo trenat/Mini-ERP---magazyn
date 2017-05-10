@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("MobileApp_alpha_v0._0._0._0._1.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("QR_test.Resource", IsApplication=true)]
 
-namespace MobileApp_alpha_v0._0._0._0._1
+namespace QR_test
 {
 	
 	
@@ -53,22 +53,6 @@ namespace MobileApp_alpha_v0._0._0._0._1
 			}
 			
 			private Drawable()
-			{
-			}
-		}
-		
-		public partial class Id
-		{
-			
-			// aapt resource value: 0x7f050000
-			public const int MyButton = 2131034112;
-			
-			static Id()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Id()
 			{
 			}
 		}

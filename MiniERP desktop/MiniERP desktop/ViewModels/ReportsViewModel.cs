@@ -3,11 +3,13 @@ using Caliburn.Micro;
 
 namespace MiniERP_desktop.ViewModels
 {
-    public class ReportsViewModel: Conductor<Screen>.Collection.OneActive
+    public class ReportsViewModel: Conductor<Screen>.Collection.OneActive, IHandle<IScreen>
     {
         private BindableCollection<string> _documentType;
         private object _content;
+        private object _helperContent; 
         private string _selectedDocumentType;
+        private IEventAggregator _eventAggregator;
 
         public BindableCollection<string> DocumentType
         {
@@ -25,6 +27,17 @@ namespace MiniERP_desktop.ViewModels
             get => _content;
         }
 
+
+        public object HelperContent
+        {
+            set
+            {
+                _helperContent = value;
+                NotifyOfPropertyChange(() => HelperContent);
+            }
+            get => _helperContent;
+        }
+
         public string SelectedDocumentType
         {
             set
@@ -36,12 +49,19 @@ namespace MiniERP_desktop.ViewModels
             get => _selectedDocumentType;
         }
 
-        public ReportsViewModel()
+        public ReportsViewModel(IEventAggregator eventAggregator)
         {
             DocumentType = new BindableCollection<string>();
             DocumentType.Add("VAT Invoice");
             DocumentType.Add("Good Issued Notes");
             DocumentType.Add("Good Recieved Notes");
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
+        }
+
+        public void Handle(IScreen e)
+            {
+            HelperContent = e;
         }
 
         public void TypeChanged(string type)
@@ -49,17 +69,18 @@ namespace MiniERP_desktop.ViewModels
             Screen screen = null;
             switch (type)
             {
-                case "VAT Invoice": screen = new InvoiceViewModel(); break;
+                case "VAT Invoice": screen = new InvoiceViewModel(_eventAggregator); break;
                 case "Good Issued Notes":; break;
                 case "Good Recieved Notes;": break;
             }
             Content = screen;
+            HelperContent = new InvoiceViewModel(_eventAggregator);
         }
 
         public void Invoice() // VAT 
         {
 
-            Content = new InvoiceViewModel();
+            Content = new InvoiceViewModel(_eventAggregator);
         }
 
         public void GIN() //(RW - rozchód wewnętrzny) Goods issued notes

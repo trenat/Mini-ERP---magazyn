@@ -186,11 +186,16 @@
       <DependentUpon>TabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TabViewModel.cs" />
+    <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\AdminAccountViewModel.cs" />
     <Compile Include="ViewModels\InvoiceViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ReportsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StorageViewModel.cs" />
+    <Compile Include="Views\AdminAccountView.xaml.cs">
+      <DependentUpon>AdminAccountView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InvoiceView.xaml.cs">
       <DependentUpon>InvoiceView.xaml</DependentUpon>
     </Compile>
@@ -211,6 +216,10 @@
       <DependentUpon>StorageView.xaml</DependentUpon>
     </Compile>
     <Page Include="TabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

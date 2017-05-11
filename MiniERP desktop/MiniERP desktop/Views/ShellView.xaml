@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="hbnjhjnnj" Height="500" Width="700"
+        Title="hbnjhjnnj" Height="600" Width="700"
         TitleCharacterCasing ="Normal"
         BorderBrush="{DynamicResource AccentColorBrush}"
         BorderThickness="1"
@@ -25,22 +25,22 @@
             </ToolBarPanel.Background>
             <ToolBarPanel.Children>
                 <Grid>
-                    <DockPanel> 
+                    <DockPanel>
                         <TextBlock Background="Transparent" x:Name="CurrentUser_FirstName" Margin="5,0,0,0"/>
                         <TextBlock Background="Transparent" Text=", hello!" Margin="-50,0,0,0"/>
-                    </DockPanel> 
+                    </DockPanel>
                     <Button x:Name="Settings" Height="20" Width="23" Margin="5,5,5,0" HorizontalAlignment="Right" Focusable="False">
-                    <Button.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFF5FAFD"/>
-                            <GradientStop Color="#FFBCC4CC" Offset="1"/>
-                            <GradientStop Color="#FFE6EBEF" Offset="0.259"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                    <Button.Content>
-                        <Image Width="16" Margin="-2.5" Source="/MiniERP desktop;component/Images/settings-icon.png"/>
-                    </Button.Content>
-                </Button>
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF5FAFD"/>
+                                <GradientStop Color="#FFBCC4CC" Offset="1"/>
+                                <GradientStop Color="#FFE6EBEF" Offset="0.259"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Content>
+                            <Image Width="16" Margin="-2.5" Source="/MiniERP desktop;component/Images/settings-icon.png"/>
+                        </Button.Content>
+                    </Button>
                 </Grid>
             </ToolBarPanel.Children>
         </ToolBarPanel>
@@ -91,9 +91,15 @@
                 </Button.Content>
             </Button>
         </DockPanel>
-        <ContentControl x:Name="ControlContent">
-
-        </ContentControl>
+        <Grid >
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE6E6E6" Offset="0"/>
+                    <GradientStop Color="#FFDADADA" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <ContentControl x:Name="ControlContent"/>
+        </Grid>
 
         <!--<TabControl x:Name="Items">
             <TabControl.ItemTemplate>

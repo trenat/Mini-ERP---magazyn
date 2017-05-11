@@ -30,8 +30,12 @@ namespace MiniERP_desktop
             
             
                 
-              _container = new SimpleContainer();
+            _container = new SimpleContainer();
+            //CompositionBatch batch = new CompositionBatch();
 
+            //batch.AddExportedValue<IWindowManager>(new WindowManager());
+            //batch.AddExportedValue<IEventAggregator>(new EventAggregator());
+            //batch.AddExportedValue(container);
             //using (ERPEntities e = new ERPEntities())
             //{
             //    e.User.Add(new User()
@@ -50,15 +54,19 @@ namespace MiniERP_desktop
 
             //}
 
-                _container.Instance(_container);
+            _container.Instance(_container);
 
             ERPEntities dbContext = new ERPEntities();
 
+            //_container
+            //    .Singleton<IWindowManager, WindowManager>()
+            //    .Singleton<IEventAggregator, EventAggregator>();
+            //    //.
+
             _container
-                .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
-                //.
-            _container.Instance<ERPEntities>(dbContext);
+                .Instance(dbContext)
+                .Instance<IWindowManager>(new WindowManager())
+                .Instance<IEventAggregator>(new EventAggregator());
             _container
                 .PerRequest<LoginViewModel>(); 
             //.PerRequest<MenuViewModel>()

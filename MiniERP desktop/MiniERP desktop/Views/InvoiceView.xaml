@@ -6,9 +6,13 @@
              xmlns:local="clr-namespace:MiniERP_desktop.Views"
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:models="clr-namespace:MiniERP_desktop.Models"
+            
+             xmlns:cal="http://www.caliburnproject.org"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:ex="http://schemas.xceed.com/wpf/xaml/toolkit"
+         
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="400" Height="470">
+             d:DesignHeight="500" d:DesignWidth="400" Height="500">
     <DockPanel>
 
         <Grid Background="WhiteSmoke" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -20,43 +24,50 @@
             <TextBlock Grid.Column="0" Text="Page Orientation" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,30,0,0" Height="16" Width="89"/>
             <TextBlock Grid.Column="0" Text="Currency" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,55,0,0" Height="16" Width="47"/>
             <TextBlock Grid.Column="0" Text="Background Color" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,80,0,0" Height="16" Width="95"/>
-            <TextBlock Grid.Column="0" Text="Image Path" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,105,0,0" Height="16" Width="60"/>
-            <TextBlock Grid.Column="0" Text="Image Width" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,130,0,0" Height="16" Width="69"/>
-            <TextBlock Grid.Column="0" Text="Image Height" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,155,0,0" Height="16" Width="77"/>
-            <TextBlock Grid.Column="0" Text="Title" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,180,0,0" Height="16" Width="22"/>
-            <TextBlock Grid.Column="0" Text="Reference" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,205,0,0" Height="16" Width="52"/>
-            <TextBlock Grid.Column="0" Text="BillingDate" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,230,0,0" Height="16" Width="57"/>
-            <TextBlock Grid.Column="0" Text="Due Time" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,255,0,0" Height="16" Width="51"/>
-            <TextBlock Grid.Column="0" Text="Client" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,280,0,0" Height="16" Width="30"/>
-            <TextBlock Grid.Column="0" Text="Company" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,305,0,0" Height="16" Width="51"/>
-            <TextBlock Grid.Column="0" Text="Company Orientation" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,330,0,0" Height="16" Width="114"/>
-            <TextBlock Grid.Column="0" Text="Details" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,355,0,0" Height="16" Width="36"/>
-            <TextBlock Grid.Column="0" Text="Footer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,380,0,0" Height="16" Width="34"/>
-            <TextBlock Grid.Column="0" Text="Items" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,405,0,0" Height="16" Width="29"/>
-            <TextBlock Grid.Column="0" Text="Totals" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,430,0,-18" Height="16" Width="30"/>
+            <TextBlock Grid.Column="0" Text="Image Path" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,130,0,0" Height="16" Width="60"/>
+            <TextBlock Grid.Column="0" Text="Image Width" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,155,0,0" Height="16" Width="69"/>
+            <TextBlock Grid.Column="0" Text="Image Height" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,180,0,0" Height="16" Width="77"/>
+            <TextBlock Grid.Column="0" Text="Title" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,205,0,0" Height="16" Width="22"/>
+            <TextBlock Grid.Column="0" Text="Reference" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,230,0,0" Height="16" Width="52"/>
+            <TextBlock Grid.Column="0" Text="BillingDate" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,255,0,0" Height="16" Width="57"/>
+            <TextBlock Grid.Column="0" Text="Due Time" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,280,0,0" Height="16" Width="51"/>
+            <TextBlock Grid.Column="0" Text="Client" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,305,0,0" Height="16" Width="30"/>
+            <TextBlock Grid.Column="0" Text="Company" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,330,0,0" Height="16" Width="51"/>
+            <TextBlock Grid.Column="0" Text="Company Orientation" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,355,0,0" Height="16" Width="114"/>
+            <TextBlock Grid.Column="0" Text="Details" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,380,0,0" Height="16" Width="36"/>
+            <TextBlock Grid.Column="0" Text="Footer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,405,0,0" Height="16" Width="34"/>
+            <TextBlock Grid.Column="0" Text="Items" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,430,0,0" Height="16" Width="29"/>
+            <TextBlock Grid.Column="0" Text="Totals" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,455,0,-18" Height="16" Width="30"/>
 
 
             <ComboBox x:Name="SizeOption" Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,3,0,0"/>
             <ComboBox x:Name="OrientOption" Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,28,0,0"/>
             <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,53,0,0"/>
-            <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,78,0,0"/>
-            <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,103,0,0"/>
+            <TextBox x:Name="MyInvoice_BackColor"
+                cal:Message.Attach="[Event GotFocus] = [Action SelectColor(1)]"
+                Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,78,0,0" IsReadOnly="True"/>
+            <TextBox x:Name="MyInvoice_TextColor"
+                cal:Message.Attach="[Event GotFocus] = [Action SelectColor(2)]"
+                Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,103,0,0" IsReadOnly="True"/>
             <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,128,0,0"/>
             <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,153,0,0"/>
             <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,178,0,0"/>
             <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,203,0,0"/>
-            <DatePicker  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,228,0,0"/>
+            <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,228,0,0"/>
             <DatePicker  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,253,0,0"/>
-            <Label  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,278,0,0" Content="Name"/>
-            <Button  Grid.Column="1" MinHeight="20" Height="25" Width="60" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,278,0,0" Content="Select"/>
-            <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,303,0,0"/>
+            <DatePicker  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,278,0,0"/>
+            <Label  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,303,0,0" Content="Name"/>
+            <Button  Grid.Column="1" MinHeight="20" Height="25" Width="60" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,303,0,0" Content="Select"/>
             <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,328,0,0"/>
             <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,353,0,0"/>
             <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,378,0,0"/>
-            <Label  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,403,0,0" Content="(Collection)"/>
+            <TextBox  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,403,0,0"/>
             <Label  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,428,0,0" Content="(Collection)"/>
-            <Button  Grid.Column="1" MinHeight="20" Height="25" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,403,0,0" Content="Edit" x:Name="EditItems"/>
-            <Button  Grid.Column="1" MinHeight="20" Height="25" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,428,0,0" Content="Edit" x:Name="EditTotals"/>
+            <Button  Grid.Column="1" MinHeight="20" Height="25" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,428,0,0" Content="Edit" x:Name="EditItems"/>
+            <Label  Grid.Column="1" MinHeight="20" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,453,0,0" Content="(Collection)"/>
+            <Button  Grid.Column="1" MinHeight="20" Height="25" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,453,0,0" Content="Edit" x:Name="EditTotals"/>
+            <TextBlock Grid.Column="0" Text="Text Color" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,105,0,0" Height="16" Width="95"/>
+           
         </Grid>
     </DockPanel>
 </UserControl>

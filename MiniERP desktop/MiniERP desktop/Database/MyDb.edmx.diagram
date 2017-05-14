@@ -36,6 +36,7 @@
         <AssociationConnector Association="ERPModel.FK_TotalRow_Invoice" ManuallyRouted="false" />
         <AssociationConnector Association="ERPModel.FK_InvoiceItem_Item" ManuallyRouted="false" />
         <AssociationConnector Association="ERPModel.FK_Object_ObjectType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ERPModel.database_firewall_rules" Width="1.5" PointX="12.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

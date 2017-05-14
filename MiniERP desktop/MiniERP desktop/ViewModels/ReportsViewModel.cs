@@ -1,9 +1,14 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
+using MiniERP_desktop.Services.Events;
+using MiniERP_desktop.Services.
+    
+    s;
+using MiniERP_desktop.ViewModels.ToolboxHelpers;
 
 namespace MiniERP_desktop.ViewModels
 {
-    public class ReportsViewModel: Conductor<Screen>.Collection.OneActive, IHandle<IScreen>
+    public class ReportsViewModel: Conductor<Screen>.Collection.OneActive, IHandle<HelperScreen>
     {
         private BindableCollection<string> _documentType;
         private object _content;
@@ -61,8 +66,8 @@ namespace MiniERP_desktop.ViewModels
 
         public void Handle(IScreen e)
             {
-            HelperContent = e;
-        }
+                HelperContent = e;
+            }
 
         public void TypeChanged(string type)
         {
@@ -74,7 +79,7 @@ namespace MiniERP_desktop.ViewModels
                 case "Good Recieved Notes;": break;
             }
             Content = screen;
-            HelperContent = new InvoiceViewModel(_eventAggregator);
+          //  HelperContent = new InvoiceViewModel(_eventAggregator);
         }
 
         public void Invoice() // VAT 
@@ -93,5 +98,15 @@ namespace MiniERP_desktop.ViewModels
             
         }
 
+        public void Generate()
+        {
+            _eventAggregator.PublishOnUIThread(new ConvertPdf());
+        }
+        
+
+        public void Handle(HelperScreen message)
+        {
+            HelperContent = message.Screen;
+        }
     }
 }

@@ -11,12 +11,12 @@
         <Border CornerRadius="15" Margin="8" Background="#FFF5F5F5" HorizontalAlignment="Left">
             <DockPanel Margin ="10">
                 <DockPanel Dock="Top">
-                    <Label DockPanel.Dock="Left">Typ dokumentu:</Label>
+                    <Label DockPanel.Dock="Left">Document type:</Label>
                     <ComboBox x:Name="DocumentType" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="150"/>
                 </DockPanel>
                 <DockPanel>
                     <ContentControl x:Name="Content" DockPanel.Dock="Top"/>
-                    <Button Margin="0,10,0,0"  DockPanel.Dock="Bottom" Content="Generuj" VerticalAlignment="Top" Width="74"/>
+                    <Button x:Name="Generate" Margin="0,10,0,0"  DockPanel.Dock="Bottom" Content="Generate" VerticalAlignment="Top" Width="74"/>
                 </DockPanel>
             </DockPanel>
         </Border>

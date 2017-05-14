@@ -12,7 +12,8 @@ namespace MiniERP_desktop.ViewModels
     {
         private BindableCollection<string> _documentType;
         private object _content;
-        private object _helperContent; 
+        private object _helperContent;
+        private object _overviewContent;
         private string _selectedDocumentType;
         private IEventAggregator _eventAggregator;
 
@@ -41,6 +42,16 @@ namespace MiniERP_desktop.ViewModels
                 NotifyOfPropertyChange(() => HelperContent);
             }
             get => _helperContent;
+        }
+
+        public object OverviewContent
+        {
+            set
+            {
+                _overviewContent = value;
+                NotifyOfPropertyChange(() => OverviewContent);
+            }
+            get => _overviewContent;
         }
 
         public string SelectedDocumentType
@@ -79,23 +90,8 @@ namespace MiniERP_desktop.ViewModels
                 case "Good Recieved Notes;": break;
             }
             Content = screen;
-          //  HelperContent = new InvoiceViewModel(_eventAggregator);
-        }
+            OverviewContent = new OverviewViewModel(_eventAggregator);
 
-        public void Invoice() // VAT 
-        {
-
-            Content = new InvoiceViewModel(_eventAggregator);
-        }
-
-        public void GIN() //(RW - rozchód wewnętrzny) Goods issued notes
-        {
-            
-        }
-
-        public void GRN() //(PW - przyjęcie wewnętrzne) Goods Recived Notes
-        {
-            
         }
 
         public void Generate()

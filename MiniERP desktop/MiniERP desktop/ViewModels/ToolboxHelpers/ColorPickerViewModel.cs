@@ -12,9 +12,9 @@ namespace MiniERP_desktop.ViewModels.ToolboxHelpers
     {
         private Image _palete;
         private Color _rgb;
-        private string _r;
-        private string _g;
-        private string _b;
+        //private string _r;
+        //private string _g;
+        //private string _b;
 
         private IEventAggregator _eventAggregator;
 

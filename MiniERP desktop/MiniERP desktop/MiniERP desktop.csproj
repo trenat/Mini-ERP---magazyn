@@ -85,6 +85,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -193,7 +194,9 @@
     <Compile Include="Database\User.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MigraDocHelper.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\DetailRow.cs" />
     <Compile Include="Models\Invoice.cs" />
@@ -204,6 +207,7 @@
     <Compile Include="Services\Events\ColorSelected.cs" />
     <Compile Include="Services\Events\ConvertPdf.cs" />
     <Compile Include="Services\Events\HelperScreen.cs" />
+    <Compile Include="Services\InvoicerApi.cs" />
     <Compile Include="Services\PasswordHasher.cs" />
     <Compile Include="Services\PdfInvoice.cs" />
     <Compile Include="TabView.xaml.cs">

@@ -96,6 +96,11 @@
           <Property Name="CompanyID" Type="int" />
           <Property Name="Footer" Type="nchar" MaxLength="50" />
           <Property Name="CompanyOrientation" Type="bit" />
+          <Property Name="PageSize" Type="int" />
+          <Property Name="PageOrientation" Type="bit" />
+          <Property Name="LogoWidth" Type="int" />
+          <Property Name="LogoHight" Type="int" />
+          <Property Name="Currency" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="InvoiceItem">
           <Key>
@@ -575,6 +580,11 @@ warning 6002: The table/view 'ERP.sys.database_firewall_rules' does not have a p
           <NavigationProperty Name="DetailRow" Relationship="Self.FK_DetailRow_Invoice" FromRole="Invoice" ToRole="DetailRow" />
           <NavigationProperty Name="InvoiceItem" Relationship="Self.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
           <NavigationProperty Name="TotalRow" Relationship="Self.FK_TotalRow_Invoice" FromRole="Invoice" ToRole="TotalRow" />
+          <Property Name="PageSize" Type="Int32" />
+          <Property Name="PageOrientation" Type="Boolean" />
+          <Property Name="LogoWidth" Type="Int32" />
+          <Property Name="LogoHight" Type="Int32" />
+          <Property Name="Currency" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="InvoiceItem">
           <Key>
@@ -1031,6 +1041,11 @@ warning 6002: The table/view 'ERP.sys.database_firewall_rules' does not have a p
           <EntitySetMapping Name="Invoice">
             <EntityTypeMapping TypeName="ERPModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="LogoHight" ColumnName="LogoHight" />
+                <ScalarProperty Name="LogoWidth" ColumnName="LogoWidth" />
+                <ScalarProperty Name="PageOrientation" ColumnName="PageOrientation" />
+                <ScalarProperty Name="PageSize" ColumnName="PageSize" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="BackColor" ColumnName="BackColor" />
                 <ScalarProperty Name="TextColor" ColumnName="TextColor" />

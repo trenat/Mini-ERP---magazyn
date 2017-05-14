@@ -7,11 +7,11 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="hbnjhjnnj" Height="600" Width="700"
+        Title="hbnjhjnnj"
         TitleCharacterCasing ="Normal"
         BorderBrush="{DynamicResource AccentColorBrush}"
         BorderThickness="1"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" SizeToContent="Height">
     <DockPanel>
         <!--<Button x:Name="OpenTab"
                 Content="Open Tab" 
@@ -25,9 +25,9 @@
             </ToolBarPanel.Background>
             <ToolBarPanel.Children>
                 <Grid>
-                    <DockPanel>
-                        <TextBlock Background="Transparent" x:Name="CurrentUser_FirstName" Margin="5,0,0,0"/>
-                        <TextBlock Background="Transparent" Text=", hello!" Margin="-50,0,0,0"/>
+                    <DockPanel  HorizontalAlignment="Center">
+                        <TextBlock Background="Transparent" FontSize="12"  VerticalAlignment="Center" x:Name="CurrentUser_FirstName" Margin="5,0,0,0" FontWeight="Bold"/>
+                        <TextBlock Background="Transparent"  FontSize="12" VerticalAlignment="Center" Text=", hello!" Margin="-50,0,0,0" FontWeight="Bold"/>
                     </DockPanel>
                     <Button x:Name="Settings" Height="20" Width="23" Margin="5,5,5,0" HorizontalAlignment="Right" Focusable="False">
                         <Button.Background>

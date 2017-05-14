@@ -34,6 +34,11 @@ namespace MiniERP_desktop.Database
         public Nullable<int> CompanyID { get; set; }
         public string Footer { get; set; }
         public Nullable<bool> CompanyOrientation { get; set; }
+        public Nullable<int> PageSize { get; set; }
+        public Nullable<bool> PageOrientation { get; set; }
+        public Nullable<int> LogoWidth { get; set; }
+        public Nullable<int> LogoHight { get; set; }
+        public string Currency { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Customer Customer { get; set; }

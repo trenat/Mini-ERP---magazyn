@@ -6,8 +6,11 @@
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:MiniERP_desktop.Views"
              mc:Ignorable="d" 
+             Height="700"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="Black">
         <Button Content="Magazyn" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Button Content="Magazyn" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="118,470,118,203" />
+        <Button Content="Magazyn" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="118,663,118,10" />
     </Grid>
 </UserControl>

@@ -21,13 +21,17 @@
             </DockPanel>
         </Border>
         <DockPanel DockPanel.Dock="Right">
+            
             <Border DockPanel.Dock="Top" CornerRadius="15" Margin="2,8,8,8" Background="#FFEFEFEF" HorizontalAlignment="Left">
-                <ContentControl  x:Name="HelperContent" DockPanel.Dock="Top"/>
-            </Border>
-            <Border DockPanel.Dock="Bottom" CornerRadius="15" Margin="2,2,8,8" Background="#FFEFEFEF" HorizontalAlignment="Left">
                 <ContentControl  x:Name="OverviewContent" DockPanel.Dock="Top"/>
             </Border>
             <Border DockPanel.Dock="Top"/>
+            <Border DockPanel.Dock="Bottom" CornerRadius="15" Margin="2,2,8,8" Background="#FFEFEFEF" HorizontalAlignment="Left">
+                <ContentControl  x:Name="HelperContent" DockPanel.Dock="Top"/>
+            </Border>
+
+           
+            
         </DockPanel>
     </DockPanel>
 </UserControl>

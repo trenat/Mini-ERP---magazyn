@@ -6,11 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Caliburn.Micro;
+using MiniERP_desktop.Helpers;
 using MiniERP_desktop.Models;
 using MiniERP_desktop.Services;
 using MiniERP_desktop.ViewModels.ToolboxHelpers;
 using MiniERP_desktop.Services.Events;
 using MiniERP_desktop.Services.s;
+using PdfSharp;
 using Xceed.Wpf.Toolkit;
 
 namespace MiniERP_desktop.ViewModels
@@ -40,17 +42,33 @@ namespace MiniERP_desktop.ViewModels
                 NotifyOfPropertyChange(() => SizeOption);
             }
         }
-
         public string SelectedSizeOption
         {
-            get;
-            set;
-            //get => MyInvoice.;
-            //set { MyInvoice.PageSize = value; }
+
+            get => ((SizeOption)MyInvoice.PageSize).ToString();
+            set
+            {
+                NotifyOfPropertyChange(() => SelectedSizeOption);
+                PageSize p;
+                PageSize.TryParse(value, out p);
+                MyInvoice.PageSize = (int)p;
+                _eventAggregator.PublishOnUIThread(new PageSizeChanged(){PageSize = p});
+            }
 
         }
-        
+        public string SelectedOrientOption
+        {
+            get => ((PageOrientation) Convert.ToInt16((bool) MyInvoice.PageOrientation)).ToString();
+            set
+            {
+                PageOrientation o;
+                PageOrientation.TryParse(value, out o);
+                MyInvoice.PageOrientation = o > 0;
+                _eventAggregator.PublishOnUIThread(new PageOrientationChanged() { Orientation = o});
+                NotifyOfPropertyChange(() => SelectedOrientOption);
+            }
 
+        }
         public Database.Invoice MyInvoice
         {
             get => _myInvoice;
@@ -58,6 +76,17 @@ namespace MiniERP_desktop.ViewModels
             {
                 _myInvoice = value;
                 NotifyOfPropertyChange(()=> MyInvoice);
+            }
+        }
+
+        public string Title
+        {
+            get => MyInvoice.Title;
+            set
+            {
+                MyInvoice.Title = value;
+                NotifyOfPropertyChange(() => Title);
+                _eventAggregator.PublishOnUIThread(new TitleChanged(){Title = value});
             }
         }
         
@@ -78,12 +107,15 @@ namespace MiniERP_desktop.ViewModels
                 TextColor = "#FF000000",
                 BillingDate = DateTime.Today,
                 DueDate = DateTime.Today.AddDays(14),
-                Title = "Faktura VAT",
+                Title = "Invoice VAT",
                 PageOrientation = false,
                 PageSize = 0,
-                Currency = "zł"
-                
+                Currency = "zł",
+                Reference = string.Format("{0}{1}{2}", DateTime.Now.GetShortYear(), DateTime.Now.GetWeekNumber(), (int)DateTime.Now.DayOfWeek)
+
             };
+
+            NotifyOfPropertyChange(() => MyInvoice);
            
 
         }
@@ -108,6 +140,12 @@ namespace MiniERP_desktop.ViewModels
             //_eventAggregator.PublishOnUIThread(new ColorPickerViewModel(_eventAggregator){RGB = color});
         }
 
+        public void SelectClient()
+        {
+
+            _eventAggregator.PublishOnUIThread(new HelperScreen() { Screen = new SearchUserViewModel() });
+        }
+
         public void SelectColor(int i)
         {
             string strColor = "";
@@ -126,6 +164,10 @@ namespace MiniERP_desktop.ViewModels
 
         public void Handle(ConvertPdf message)
         {
+
+            //var filename = System.IO.Path.ChangeExtension(Invoice.Reference, "pdf");
+            //new PdfInvoice(MyInvoice).Save(filename);
+
             new InvoicerApi(Models.SizeOption.A4, OrientationOption.Portrait, "zł")
                 .TextColor(MyInvoice.TextColor)
                 .BackColor(MyInvoice.BackColor)

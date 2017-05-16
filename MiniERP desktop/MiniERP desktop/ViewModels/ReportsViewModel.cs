@@ -2,13 +2,13 @@
 using Caliburn.Micro;
 using MiniERP_desktop.Services.Events;
 using MiniERP_desktop.Services.
-    
+
     s;
 using MiniERP_desktop.ViewModels.ToolboxHelpers;
 
 namespace MiniERP_desktop.ViewModels
 {
-    public class ReportsViewModel: Conductor<Screen>.Collection.OneActive, IHandle<HelperScreen>
+    public class ReportsViewModel : Conductor<Screen>.Collection.OneActive, IHandle<HelperScreen>
     {
         private BindableCollection<string> _documentType;
         private object _content;
@@ -59,7 +59,7 @@ namespace MiniERP_desktop.ViewModels
             set
             {
                 _selectedDocumentType = value;
-                NotifyOfPropertyChange(()=> SelectedDocumentType);
+                NotifyOfPropertyChange(() => SelectedDocumentType);
                 TypeChanged(_selectedDocumentType);
             }
             get => _selectedDocumentType;
@@ -76,21 +76,24 @@ namespace MiniERP_desktop.ViewModels
         }
 
         public void Handle(IScreen e)
-            {
-                HelperContent = e;
-            }
+        {
+            HelperContent = e;
+        }
 
         public void TypeChanged(string type)
         {
             Screen screen = null;
+            string title = type;
             switch (type)
             {
-                case "VAT Invoice": screen = new InvoiceViewModel(_eventAggregator); break;
-                case "Good Issued Notes":; break;
+                case "VAT Invoice":
+                    title = "Invoice VAT";
+                    screen = new InvoiceViewModel(_eventAggregator); break;
+                case "Good Issued Notes": break;
                 case "Good Recieved Notes;": break;
             }
             Content = screen;
-            OverviewContent = new OverviewViewModel(_eventAggregator);
+            OverviewContent = new OverviewViewModel(_eventAggregator, title);
 
         }
 
@@ -98,7 +101,7 @@ namespace MiniERP_desktop.ViewModels
         {
             _eventAggregator.PublishOnUIThread(new ConvertPdf());
         }
-        
+
 
         public void Handle(HelperScreen message)
         {

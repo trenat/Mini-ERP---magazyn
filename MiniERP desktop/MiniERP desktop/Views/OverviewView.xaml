@@ -6,25 +6,113 @@
              xmlns:local="clr-namespace:MiniERP_desktop.Views"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:ex="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:documentObjectModel="clr-namespace:MigraDoc.DocumentObjectModel;assembly=MigraDoc.DocumentObjectModel-wpf"
+             xmlns:helpers="clr-namespace:MiniERP_desktop.Helpers"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid VerticalAlignment="Top" Width="210" Height="297" Margin="18,8,24,14">
+             d:DesignHeight="800" d:DesignWidth="1200">
+
+    <Grid VerticalAlignment="Top" Width="{Binding PageWidth}" Height="{Binding PageHeight}" Margin="18,8,24,14">
         <Grid.Effect>
             <DropShadowEffect/>
         </Grid.Effect>
         <ex:RichTextBox IsReadOnly="True">
             <RichTextBox.Document>
-                <FlowDocument Background="{Binding BackColor}" Foreground="{Binding TextColor}" AllowDrop="False" >
+                <FlowDocument   AllowDrop="False" >
                     <Section>
                         <Paragraph FontSize="18" Block.TextAlignment="Center">
                             <LineBreak/>
-                            Invoice VAT
-                            
+                           <Run Text="{Binding Title}"></Run>
+
                         </Paragraph>
+                    </Section>
+                    <Section>
+                        <Table>
+                            <Table.Columns>
+                                <TableColumn x:Name="Addres1Width" />
+                                <TableColumn Width="40" />
+                                <TableColumn x:Name="Addres2Width" />
+                            </Table.Columns>
+                            <TableRowGroup>
+                                <TableRow Foreground="{Binding TextColor}">
+                                    <TableCell>
+                                        <Paragraph>
+                                            Client address
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            Company address
+                                        </Paragraph>
+                                    </TableCell>
+                                </TableRow>
+                            </TableRowGroup>
+                        </Table>
+                    </Section>
+                    <Section>
+                        <Table>
+                            <Table.Columns>
+                                <TableColumn x:Name="InvoiceColumn1" />
+                                <TableColumn x:Name="InvoiceColumn2" />
+                            </Table.Columns>
+                            <TableRowGroup >
+                                <TableRowGroup.Rows>
+                                    <TableRow  FontSize="10" FontWeight="Bold" Foreground="{Binding TextColor}"  >
+
+                                        <TableRow.Cells >
+
+                                            <TableCell BorderThickness="0,0,0,1" BorderBrush="{Binding TextColor}">
+
+                                                <Paragraph>
+                                                    Product
+                                                </Paragraph>
+                                            </TableCell>
+                                            <TableCell BorderThickness="0,0,0,1" BorderBrush="{Binding TextColor}">
+                                                <Paragraph>
+                                                    Amount
+                                                </Paragraph>
+                                            </TableCell >
+
+                                        </TableRow.Cells>
+                                    </TableRow>
+                                    <TableRow FontSize="9" >
+                                        <TableCell Background="{Binding BackColor}">
+                                            <Paragraph>
+                                                blabla
+                                            </Paragraph>
+                                            <Paragraph Foreground="Gray">
+                                                Blabla Description
+                                            </Paragraph>
+                                        </TableCell>
+                                        <TableCell Background="{Binding BackColor}">
+                                            <Paragraph>
+                                                blabla
+                                            </Paragraph>
+                                            <Paragraph Foreground="Gray">
+                                                Blabla Description
+                                            </Paragraph>
+                                        </TableCell>
+
+                                    </TableRow>
+                                    <TableRow FontSize="9" >
+                                    </TableRow>
+                                </TableRowGroup.Rows>
+
+
+                            </TableRowGroup>
+                        </Table>
                     </Section>
                 </FlowDocument>
                 <!--<Paragraph />-->
             </RichTextBox.Document>
-            </ex:RichTextBox>
+        </ex:RichTextBox>
+
+        <helpers:ExtendedBinding Source="{Binding ElementName=Addres1Width, Path=Width}" Target="{Binding Addres1Width}" />
+        <helpers:ExtendedBinding Source="{Binding ElementName=Addres2Width, Path=Width}" Target="{Binding Addres2Width}" />
+        <helpers:ExtendedBinding Source="{Binding ElementName=InvoiceColumn1, Path=Width}" Target="{Binding InvoiceColumnWidth}" />
+        <helpers:ExtendedBinding Source="{Binding ElementName=InvoiceColumn2, Path=Width}" Target="{Binding InvoiceColumnWidth}" />
     </Grid>
+
 </UserControl>

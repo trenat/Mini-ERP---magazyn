@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using MahApps.Metro.Controls;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Shapes;
@@ -56,7 +57,7 @@ namespace MiniERP_desktop.Services
             {
                 Border bottomLine = new Border();
                 bottomLine.Width = new Unit(0.5);
-             //TODO:   bottomLine.Color = MigraDocHelpers.TextColorFromHtml(Invoice.TextColor);
+                bottomLine.Color = MigraDocHelpers.TextColorFromHtml(Invoice.TextColor);
                 return bottomLine;
             }
         }
@@ -78,6 +79,7 @@ namespace MiniERP_desktop.Services
             if (!string.IsNullOrEmpty(password))
                 SetPassword(renderer, password);
             renderer.PdfDocument.Save(filename);
+            Process.Start(filename);
         }
 
         public Document GenerateWithoutSave()
@@ -158,7 +160,7 @@ namespace MiniERP_desktop.Services
             style.Font.Bold = true;
 
             style = Pdf.Styles.AddStyle("H2-10B-Color", "H2-10B");
-          //TODO  style.Font.Color = MigraDocHelpers.TextColorFromHtml(Invoice.TextColor);
+            style.Font.Color = MigraDocHelpers.TextColorFromHtml(Invoice.TextColor);
         }
 
         private void HeaderSection()

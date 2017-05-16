@@ -194,6 +194,7 @@
     <Compile Include="Database\User.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ExtendedBinidng.cs" />
     <Compile Include="Helpers\MigraDocHelper.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Helpers\Utils.cs" />
@@ -207,6 +208,9 @@
     <Compile Include="Services\Events\ColorSelected.cs" />
     <Compile Include="Services\Events\ConvertPdf.cs" />
     <Compile Include="Services\Events\HelperScreen.cs" />
+    <Compile Include="Services\Events\PageOrientationChanged.cs" />
+    <Compile Include="Services\Events\PageSizeChanged.cs" />
+    <Compile Include="Services\Events\TitleChanged.cs" />
     <Compile Include="Services\InvoicerApi.cs" />
     <Compile Include="Services\PasswordHasher.cs" />
     <Compile Include="Services\PdfInvoice.cs" />
@@ -220,6 +224,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="ViewModels\ReportsViewModel.cs" />
+    <Compile Include="ViewModels\SearchUserViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StorageViewModel.cs" />
     <Compile Include="ViewModels\ToolboxHelpers\ColorPickerViewModel.cs" />
@@ -238,6 +243,9 @@
     <Compile Include="Views\ReportsView.xaml.cs">
       <DependentUpon>ReportsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SearchUserView.xaml.cs">
+      <DependentUpon>SearchUserView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -250,6 +258,9 @@
     </Compile>
     <Compile Include="Views\ToolboxHelpers\ColorPickerView.xaml.cs">
       <DependentUpon>ColorPickerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserManagmentView.xaml.cs">
+      <DependentUpon>UserManagmentView.xaml</DependentUpon>
     </Compile>
     <Page Include="TabView.xaml">
       <SubType>Designer</SubType>
@@ -275,6 +286,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SearchUserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -284,6 +299,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ToolboxHelpers\ColorPickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserManagmentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

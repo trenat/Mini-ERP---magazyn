@@ -6,49 +6,36 @@ using MigraDoc.DocumentObjectModel;
 using MiniERP_desktop.Models;
 using MiniERP_desktop.Services;
 using MiniERP_desktop.Services.Events;
+using PdfSharp;
 using Color = System.Windows.Media.Color;
 
 namespace MiniERP_desktop.ViewModels
 {
-    public class OverviewViewModel:Screen, IHandle<ColorSelected>
+    public class OverviewViewModel:Screen, IHandle<ColorSelected>, IHandle<PageOrientationChanged>, IHandle<PageSizeChanged>, IHandle<TitleChanged>
     {
         private Brush _textColor;
         private Brush _backColor;
         private IEventAggregator _eventAggregator;
+        private Double _pageWidth;
+        private Double _pageHeight;
         private Document _document;
+        private PageOrientation _pageOrientation;
+        private PageSize _pageSize;
+        private Double _addres1Width;
+        private Double _addres2Width;
+        private Double _invoiceColumnWidth;
+        private string _title;
 
-        public OverviewViewModel(IEventAggregator eventAggregator)
+        public OverviewViewModel(IEventAggregator eventAggregator, string title)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             TextColor = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-            BackColor = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            BackColor = new SolidColorBrush(Color.FromRgb(255,255, 255));
+            _pageOrientation = PageOrientation.Portrait;
+            PageSize = PageSize.A4;
+            Title = title;
 
-
-
-            Document = new InvoicerApi(Models.SizeOption.A4, OrientationOption.Portrait, "zł")
-                .TextColor(TextColor.ToString())
-                .BackColor(BackColor.ToString())
-                .BillingDate(DateTime.Today)
-                .DueDate(DateTime.Today.AddDays(14))
-                //.Image(@"..\..\images\vodafone.jpg", 125, 27)
-                .Company(Address.Make("FROM", new string[] { "Vodafone Limited", "Vodafone House", "The Connection", "Newbury", "Berkshire RG14 2FN" }, "1471587", "569953277"))
-                .Client(Address.Make("BILLING TO", new string[] { "Isabella Marsh", "Overton Circle", "Little Welland", "Worcester", "WR## 2DJ" }))
-                .Items(new List<ItemRow> {
-                    ItemRow.Make("Nexus 6", "Midnight Blue", (decimal)1, 20, (decimal)166.66, (decimal)199.99),
-                    ItemRow.Make("24 Months (£22.50pm)", "100 minutes, Unlimited texts, 100 MB data 3G plan with 3GB of UK Wi-Fi", (decimal)1, 20, (decimal)360.00, (decimal)432.00),
-                    ItemRow.Make("Special Offer", "Free case (blue)", (decimal)1, 0, (decimal)0, (decimal)0),
-                })
-                .Totals(new List<TotalRow> {
-                    TotalRow.Make("Sub Total", (decimal)526.66),
-                    TotalRow.Make("VAT @ 20%", (decimal)105.33),
-                    TotalRow.Make("Total", (decimal)631.99, true),
-                })
-                .Details(new List<DetailRow> {
-                    DetailRow.Make("PAYMENT INFORMATION", "Make all cheques payable to Vodafone UK Limited.", "", "If you have any questions concerning this invoice, contact our sales department at sales@vodafone.co.uk.", "", "Thank you for your business.")
-                })
-                .Footer("http://www.vodafone.co.uk")
-                .GenerateDocumenteWithoutSave();
         }
 
         public Brush TextColor
@@ -81,6 +68,92 @@ namespace MiniERP_desktop.ViewModels
             }
         }
 
+        public Double PageWidth
+        {
+            get => _pageWidth;
+            set
+            {
+                _pageWidth = value;
+                NotifyOfPropertyChange(() => PageWidth);
+                Addres1Width = value / 2 - 50;
+                Addres2Width = value / 2 - 30;
+                InvoiceColumnWidth = (value - 10) / 2;
+            }
+        }
+
+        public Double PageHeight
+        {
+            get => _pageHeight;
+            set
+            {
+                _pageHeight = value;
+                NotifyOfPropertyChange(() => PageHeight);
+
+            }
+        }
+
+        public PageOrientation PageOrientation
+        {
+            get => _pageOrientation;
+            set
+            {
+                _pageOrientation = value;
+                NotifyOfPropertyChange(() => PageOrientation);
+                SetWidthAndHeight();
+            }
+        }
+
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                _title = value;
+                NotifyOfPropertyChange(() => Title);
+            }
+        }
+
+        public PageSize PageSize
+        {
+            get => _pageSize;
+            private set
+            {
+                _pageSize = value;
+                NotifyOfPropertyChange(() => PageSize);
+                SetWidthAndHeight();
+            }
+        }
+
+        public Double Addres1Width
+        {
+            get => _addres1Width;
+            set
+            {
+                _addres1Width = value;
+                NotifyOfPropertyChange(()=> Addres1Width);
+            }
+        }
+
+        public Double Addres2Width
+        {
+            get => _addres2Width;
+            set
+            {
+                _addres2Width = value;
+                NotifyOfPropertyChange(()=> Addres2Width);
+            }
+        }
+
+        public double InvoiceColumnWidth
+        {
+            get => _invoiceColumnWidth;
+            set
+            {
+                _invoiceColumnWidth = value;
+                NotifyOfPropertyChange(()=> InvoiceColumnWidth);
+            }
+        }
+
         public void Handle(ColorSelected message)
         {
             Brush brush = new SolidColorBrush(message.Color);
@@ -90,6 +163,54 @@ namespace MiniERP_desktop.ViewModels
                 case 2: TextColor = brush; break;
             }
 
+        }
+
+        public void Handle(PageOrientationChanged message)
+        {
+            PageOrientation = message.Orientation;
+        }
+
+        public void Handle(PageSizeChanged message)
+        {
+            PageSize = message.PageSize;
+        }
+
+
+        private void SetWidthAndHeight()
+        {
+            double x = 0, y = 0;
+            switch (PageSize)
+            {
+                case PageSize.A4:
+                    x = 210;
+                    y = 297;
+                    break;
+                case PageSize.Letter:
+                    x = 216;
+                    y = 279;
+                    break;
+                case PageSize.Legal:
+                    x = 216;
+                    y = 356;
+                    break;
+            }
+            switch (PageOrientation)
+            {
+                case PageOrientation.Landscape:
+                    PageHeight = x;
+                    PageWidth = y;
+                    break;
+                case PageOrientation.Portrait:
+                    PageHeight = y;
+                    PageWidth = x;
+                    break;
+            }
+        }
+
+
+        public void Handle(TitleChanged message)
+        {
+            Title = message.Title;
         }
     }
 }

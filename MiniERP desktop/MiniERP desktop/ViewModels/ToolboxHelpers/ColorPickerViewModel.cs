@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Caliburn.Micro;
 using MiniERP_desktop.Services.Events;
 
@@ -10,29 +11,26 @@ namespace MiniERP_desktop.ViewModels.ToolboxHelpers
 {
     public class ColorPickerViewModel:Screen
     {
-        private Image _palete;
         private Color _rgb;
-        //private string _r;
-        //private string _g;
-        //private string _b;
 
         private IEventAggregator _eventAggregator;
+        private DispatcherTimer tim;
+        private bool _newValue;
 
         public ColorPickerViewModel(IEventAggregator eventAggregator, Color color, int index)
         {
             _eventAggregator = eventAggregator;
             Index = index;
+            tim = new DispatcherTimer();
+            tim.Interval = TimeSpan.FromMilliseconds(1000);
+            tim.Tick += Tim_Tick;
             RGB = color;
         }
 
-        public Image Palete
+        private void Tim_Tick(object sender, EventArgs e)
         {
-            get => _palete;
-            set
-            {
-                _palete = value;
-                NotifyOfPropertyChange(() => Palete);
-            }
+            _eventAggregator.BeginPublishOnUIThread(new ColorSelected() { Color = RGB, Index = this.Index });
+            ((DispatcherTimer)sender).Stop();
         }
 
         public Color RGB
@@ -41,40 +39,14 @@ namespace MiniERP_desktop.ViewModels.ToolboxHelpers
             set
             {
                 _rgb = value;
+                _newValue = true;
+                if(!tim.IsEnabled)
+                    tim.Start();
                 NotifyOfPropertyChange(()=> RGB);
-                _eventAggregator.PublishOnUIThread(new ColorSelected(){Color = RGB, Index = this.Index});
             }
         }
         
         public int Index { set; get; }
-        //public string R
-        //{
-        //    get => _r;
-        //    set
-        //    {
-        //        _r = value;
-        //        NotifyOfPropertyChange(() => R);
-        //    }
-        //}
-        //public string B
-        //{
-        //    get => _b;
-        //    set
-        //    {
-        //        _b = value;
-        //        NotifyOfPropertyChange(() => B);
-        //    }
-        //}
-        //public string G
-        //{
-        //    get => _g;
-        //    set
-        //    {
-        //        _g = value;
-        //        NotifyOfPropertyChange(() => G);
-        //    }
-        //}
-
 
         
     }

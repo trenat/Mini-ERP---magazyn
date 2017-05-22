@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
 using Caliburn.Micro;
 using MigraDoc.DocumentObjectModel;
+using MiniERP_desktop.Helpers;
 using MiniERP_desktop.Models;
 using MiniERP_desktop.Services;
 using MiniERP_desktop.Services.Events;
@@ -11,7 +13,8 @@ using Color = System.Windows.Media.Color;
 
 namespace MiniERP_desktop.ViewModels
 {
-    public class OverviewViewModel:Screen, IHandle<ColorSelected>, IHandle<PageOrientationChanged>, IHandle<PageSizeChanged>, IHandle<TitleChanged>
+    public class OverviewViewModel : Screen, IHandle<ColorSelected>, IHandle<PageOrientationChanged>,
+        IHandle<PageSizeChanged>, IHandle<TitleChanged>, IHandle<CompanyOrientationChanged>, IHandle<LogoChanged>
     {
         private Brush _textColor;
         private Brush _backColor;
@@ -24,18 +27,24 @@ namespace MiniERP_desktop.ViewModels
         private Double _addres1Width;
         private Double _addres2Width;
         private Double _invoiceColumnWidth;
+        private string _rightAddress;
+        private string _leftAddress;
         private string _title;
+        private Visibility _addLogo;
+        private double _logoHeight;
+        private double _logoWidth;
 
         public OverviewViewModel(IEventAggregator eventAggregator, string title)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             TextColor = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-            BackColor = new SolidColorBrush(Color.FromRgb(255,255, 255));
+            BackColor = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             _pageOrientation = PageOrientation.Portrait;
             PageSize = PageSize.A4;
             Title = title;
-
+            LeftAddress = "Company Address ";
+            RightAddress = "Client Address";
         }
 
         public Brush TextColor
@@ -113,6 +122,26 @@ namespace MiniERP_desktop.ViewModels
             }
         }
 
+        public string LeftAddress
+        {
+            get => _leftAddress;
+            set
+            {
+                _leftAddress = value;
+                NotifyOfPropertyChange(() => LeftAddress);
+            }
+        }
+
+        public string RightAddress
+        {
+            get => _rightAddress;
+            set
+            {
+                _rightAddress = value;
+                NotifyOfPropertyChange(() => RightAddress);
+            }
+        }
+
         public PageSize PageSize
         {
             get => _pageSize;
@@ -130,7 +159,7 @@ namespace MiniERP_desktop.ViewModels
             set
             {
                 _addres1Width = value;
-                NotifyOfPropertyChange(()=> Addres1Width);
+                NotifyOfPropertyChange(() => Addres1Width);
             }
         }
 
@@ -140,7 +169,7 @@ namespace MiniERP_desktop.ViewModels
             set
             {
                 _addres2Width = value;
-                NotifyOfPropertyChange(()=> Addres2Width);
+                NotifyOfPropertyChange(() => Addres2Width);
             }
         }
 
@@ -150,7 +179,37 @@ namespace MiniERP_desktop.ViewModels
             set
             {
                 _invoiceColumnWidth = value;
-                NotifyOfPropertyChange(()=> InvoiceColumnWidth);
+                NotifyOfPropertyChange(() => InvoiceColumnWidth);
+            }
+        }
+
+        public Visibility AddLogo
+        {
+            get => _addLogo;
+            set
+            {
+                _addLogo = value;
+                NotifyOfPropertyChange(() => AddLogo);
+            }
+        }
+
+        public double LogoWidth
+        {
+            get => _logoWidth;
+            set
+            {
+                _logoWidth = value;
+                NotifyOfPropertyChange(() => LogoWidth);
+            }
+        }
+
+        public double LogoHeight
+        {
+            get => _logoHeight;
+            set
+            {
+                _logoHeight = value;
+                NotifyOfPropertyChange(() => LogoHeight);
             }
         }
 
@@ -159,8 +218,12 @@ namespace MiniERP_desktop.ViewModels
             Brush brush = new SolidColorBrush(message.Color);
             switch (message.Index)
             {
-                case 1: BackColor = brush; break;
-                case 2: TextColor = brush; break;
+                case 1:
+                    BackColor = brush;
+                    break;
+                case 2:
+                    TextColor = brush;
+                    break;
             }
 
         }
@@ -212,5 +275,27 @@ namespace MiniERP_desktop.ViewModels
         {
             Title = message.Title;
         }
+
+        public void Handle(CompanyOrientationChanged message)
+        {
+            if (message.Orientation == PositionOption.Right)
+            {
+                LeftAddress = "Campany address";
+                RightAddress = "Client address";
+            }
+            else
+            {
+                LeftAddress = "Client address";
+                RightAddress = "Campany address";
+            }
+        }
+
+        public void Handle(LogoChanged message)
+        {
+            AddLogo = message.AddLogo;
+            LogoHeight = message.Height/ 3.779528*2;
+            LogoWidth = message.Width/ 3.779528*2;
+        }
+
     }
 }

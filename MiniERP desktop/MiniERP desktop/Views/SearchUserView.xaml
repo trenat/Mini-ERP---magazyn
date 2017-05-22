@@ -10,9 +10,9 @@
              xmlns:dg="http://schemas.xceed.com/wpf/xaml/datagrid"
 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="500">
+             d:DesignHeight="500" d:DesignWidth="500">
     <UserControl.Resources>
-         <Style TargetType="TextBlock">
+        <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Width" Value="160"/>
             <Setter Property="Margin" Value="5"/>
@@ -30,14 +30,10 @@
         <Style TargetType="ComboBox">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Width" Value="120"/>
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="5,2,5,2"/>
         </Style>
     </UserControl.Resources>
     <StackPanel Margin="8" Width="340">
-        <WrapPanel>
-            <TextBlock Text="ID"></TextBlock>
-            <TextBox/>
-        </WrapPanel>
         <WrapPanel>
             <TextBlock Text="First Name"></TextBlock>
             <TextBox/>
@@ -68,14 +64,19 @@
             <ex:MaskedTextBox Mask="000 000 000" SkipLiterals="True"  ValueDataType="{x:Type sys:Int16}"/>
         </WrapPanel>
         <dg:DataGridControl Margin="5">
-            <dg:DataGridControl.View>
-                <dg:TableflowView FixedColumnCount="2" />
-            </dg:DataGridControl.View>
 
+            
             <dg:DataGridControl.Columns>
-                <dg:Column FieldName="OrderID"
-                             IsMainColumn="True">
+               <dg:Column FieldName="FirstName"
+                             IsMainColumn="True" Title="Name">
                 </dg:Column>
+                <dg:Column FieldName="Surname"/>
+                <dg:Column FieldName="Lastname"/>
+                <dg:Column FieldName="Gender"/>
+                <dg:Column FieldName="Age"/>
+                <dg:Column FieldName="City"/>
+                <dg:Column FieldName="E-mail"/>
+                <dg:Column FieldName="Phone"/>
             </dg:DataGridControl.Columns>
         </dg:DataGridControl>
     </StackPanel>

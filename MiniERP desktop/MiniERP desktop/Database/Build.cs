@@ -24,8 +24,10 @@ namespace MiniERP_desktop.Database
         public int ID { get; set; }
         public Nullable<int> AdminID { get; set; }
         public Nullable<int> BuildTypeID { get; set; }
+        public Nullable<int> AddresID { get; set; }
         public Nullable<System.DateTime> BuildDate { get; set; }
     
+        public virtual Address Address { get; set; }
         public virtual BuildType BuildType { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

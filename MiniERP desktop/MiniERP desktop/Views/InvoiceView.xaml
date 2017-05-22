@@ -12,128 +12,151 @@
              xmlns:ex="http://schemas.xceed.com/wpf/xaml/toolkit"
          
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="400" Height="500">
+             d:DesignHeight="500" d:DesignWidth="400" >
     <UserControl.Resources>
-        <Style TargetType="TextBlock">
+
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}" x:Key="TBl">
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Width" Value="120"/>
+            <Setter Property="Width" Value="130"/>
             <Setter Property="Margin" Value="5"/>
         </Style>
-        <!--<Style TargetType="TextBox">
+
+        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Width" Value="120"/>
             <Setter Property="MinHeight" Value="20"/>
             <Setter Property="Margin" Value="0"/>
         </Style>
+
         <Style TargetType="ex:MaskedTextBox">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Width" Value="120"/>
             <Setter Property="Margin" Value="5"/>
-        </Style>-->
-        <!--<Style TargetType="ComboBox">
+        </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Width" Value="120"/>
             <Setter Property="Margin" Value="0"/>
-        </Style>-->
-        <!--<Style TargetType="DatePicker">
+        </Style>
+        <Style TargetType="DatePicker">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Width" Value="120"/>
             <Setter Property="Margin" Value="0"/>
-        </Style>-->
-        <!--<Style TargetType="Button">
-            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="HorizontalAlignment" Value="Right"/>
-        </Style>-->
-        
-    </UserControl.Resources>
-    <DockPanel>
+        </Style>
+        <Style TargetType="WrapPanel">
+            <Setter Property="Width" Value="260"/>
 
-        <Grid Background="WhiteSmoke" VerticalAlignment="Center" HorizontalAlignment="Center">
+        </Style>
+        <Style TargetType="StackPanel" x:Key="HideLogo">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=AddLogo, Path=IsChecked}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+    <!--Styles -->
+    <DockPanel>
+        <Grid Background="WhiteSmoke" VerticalAlignment="Center"  HorizontalAlignment="Center">
             <StackPanel>
-                <WrapPanel >
-                    <TextBlock Text="Page Size" />
-                    <ComboBox x:Name="SizeOption" />
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Client"/>
+                    <Label  Content="[Empty]"/>
+                    <Button x:Name="SelectClient" Content="Find"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Items"/>
+                    <Label Content="[Empty]"/>
+                    <Button Content="Edit"  x:Name="EditItems"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Company"/>
+                    <Label Content="[Default]" />
+                    <Button Content="Edit"/>
+                </DockPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Company Orientation"/>
+                    <ComboBox x:Name="CompanyOrient" />
                 </WrapPanel>
-                 <WrapPanel>
-                    <TextBlock Text="Page Orientation"/>
-                    <ComboBox x:Name="OrientOption" />
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Currency"/>
+                    <ComboBox x:Name="Currency" Width="86"/>
+                    <Button Content="Edit"/>
+                </DockPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Add logo"/>
+                    <CheckBox x:Name="AddLogo"/>
+                </WrapPanel>
+                <StackPanel Style="{StaticResource HideLogo}">
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource TBl}" Text="Logo Width"/>
+                        <TextBox  x:Name="LogoWidth"/>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource TBl}" Text="Logo Height"/>
+                        <TextBox  x:Name="LogoHeight"/>
+                    </WrapPanel>
+                </StackPanel>
+
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}"  Text="Title"/>
+                    <TextBox  x:Name="MyInvoice_Title"/>
+
                 </WrapPanel>
                 <WrapPanel>
-                    <TextBlock Text="Currency"/>
-                    <TextBox x:Name="MyInvoice_Currency"/>
+                    <TextBlock Style="{StaticResource TBl}" Text="BillingDate"/>
+                    <DatePicker  x:Name="MyInvoice_BillingDate" />
                 </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Due Time"/>
+                    <DatePicker   x:Name="MyInvoice_DueDate" />
+                </WrapPanel>
+
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Reference"/>
+                    <TextBox x:Name="MyInvoice_Reference"/>
+                </WrapPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Details"/>
+                    <Label Content="[Default]" />
+                    <Button Content="Edit"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Footer"/>
+                    <Label Content="[Default]" />
+                    <Button Content="Edit"/>
+                </DockPanel>
                 <WrapPanel >
-                    <TextBlock Text="Background Color"/>
+                    <TextBlock Style="{StaticResource TBl}" Text="Background Color"/>
                     <TextBox x:Name="MyInvoice_BackColor"
                              cal:Message.Attach="[Event GotFocus] = [Action SelectColor(1)]"
                              IsReadOnly="True"/>
                 </WrapPanel>
                 <WrapPanel >
-                    <TextBlock Text="Text Color" />
+                    <TextBlock Style="{StaticResource TBl}" Text="Text Color" />
                     <TextBox x:Name="MyInvoice_TextColor"
                              cal:Message.Attach="[Event GotFocus] = [Action SelectColor(2)]"
                              IsReadOnly="True"/>
                 </WrapPanel>
+                <WrapPanel >
+                    <TextBlock Style="{StaticResource TBl}" Text="Page Size" />
+                    <ComboBox x:Name="SizeOption" />
+                </WrapPanel>
                 <WrapPanel>
-                    <TextBlock Text="Image Path"/>
-                    <TextBox  />
+                    <TextBlock Style="{StaticResource TBl}" Text="Page Orientation"/>
+                    <ComboBox x:Name="OrientOption" />
                 </WrapPanel>
 
-                <WrapPanel>
-                    <TextBlock Text="Image Width"/>
-                    <TextBox  />
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Image Height"/>
-                    <TextBox  />
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock  Text="Title"/>
-                    <TextBox  x:Name="MyInvoice_Title"/>
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Reference"/>
-                    <TextBox/>
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="BillingDate"/>
-                    <DatePicker  x:Name="MyInvoice_BillingDate"/>
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Due Time"/>
-                    <DatePicker  x:Name="MyInvoice_DueDate" />
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Client"/>
-                    <TextBox/>
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Company"/>
-                    <Label Content="Name"/>
-                    <Button x:Name="SelectClient" Content="Select"/>
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Company Orientation"/>
-                    <TextBox />
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Details"/>
-                    <TextBox/>
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Footer"/>
-                    <TextBox />
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Items"/>
-                    <Label Content="(Collection)"/>
-                    <Button Content="Edit" x:Name="EditItems"/>
-                </WrapPanel>
-                <WrapPanel>
-                    <TextBlock Text="Totals" />
-                    <Label  Grid.Column="1" Content="(Collection)"/>
-                    <Button  Grid.Column="1" Content="Edit" x:Name="EditTotals"/>
-                </WrapPanel>
+
+
+
+
+
             </StackPanel>
         </Grid>
     </DockPanel>

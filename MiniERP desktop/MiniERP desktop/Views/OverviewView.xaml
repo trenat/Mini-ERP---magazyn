@@ -18,12 +18,33 @@
         <ex:RichTextBox IsReadOnly="True">
             <RichTextBox.Document>
                 <FlowDocument   AllowDrop="False" >
-                    <Section>
-                        <Paragraph FontSize="18" Block.TextAlignment="Center">
-                            <LineBreak/>
-                           <Run Text="{Binding Title}"></Run>
 
-                        </Paragraph>
+                    <Section>
+                        <Table Padding="0,15,0,0" >
+                            <Table.Columns>
+                                <TableColumn  />
+                                <TableColumn Width="10" />
+                                <TableColumn />
+                            </Table.Columns>
+                            <TableRowGroup>
+                              
+                              <TableRow>
+                                    <TableCell>
+                                        <Paragraph>
+                                            <Image Visibility="{Binding AddLogo}" HorizontalAlignment="Left" Source="../Images/prz_bez_dopisku_podstawa.png" Height="{Binding LogoHeigt}" Width ="{Binding LogoWidth}" Stretch="Fill"/>
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell/>
+                                    <TableCell>
+                                        <Paragraph >
+                                            <LineBreak></LineBreak>
+                                            <Run FontSize="16" Text="{Binding Title}" Block.TextAlignment="Right"/>
+                                        </Paragraph>
+
+                                    </TableCell>
+                                </TableRow>
+                            </TableRowGroup>
+                        </Table>
                     </Section>
                     <Section>
                         <Table>
@@ -36,7 +57,7 @@
                                 <TableRow Foreground="{Binding TextColor}">
                                     <TableCell>
                                         <Paragraph>
-                                            Client address
+                                            <Run Text="{Binding LeftAddress}"/>
                                         </Paragraph>
                                     </TableCell>
                                     <TableCell>
@@ -44,7 +65,7 @@
                                     </TableCell>
                                     <TableCell>
                                         <Paragraph>
-                                            Company address
+                                            <Run Text="{Binding RightAddress}"/>
                                         </Paragraph>
                                     </TableCell>
                                 </TableRow>

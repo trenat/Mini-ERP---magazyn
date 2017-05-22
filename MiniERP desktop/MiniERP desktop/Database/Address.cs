@@ -12,23 +12,27 @@ namespace MiniERP_desktop.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Company
+    public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Company()
+        public Address()
         {
-            this.Invoice = new HashSet<Invoice>();
+            this.Build = new HashSet<Build>();
+            this.Company = new HashSet<Company>();
+            this.Customer = new HashSet<Customer>();
         }
     
         public int ID { get; set; }
-        public Nullable<int> AddressID { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> VatNumber { get; set; }
-        public Nullable<int> CompanyNumber { get; set; }
-        public string LogoPath { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string ZipCode { get; set; }
+        public string Country { get; set; }
     
-        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Invoice> Invoice { get; set; }
+        public virtual ICollection<Build> Build { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Company> Company { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customer { get; set; }
     }
 }

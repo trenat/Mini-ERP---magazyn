@@ -10,13 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="10" VerticalAlignment="Top">
         <StackPanel >
-            
-            <ex:ColorCanvas A="255"
-                            R="{Binding R}"
-                            G="{Binding G}"
-                            B="{Binding B}" 
-                            SelectedColor="{Binding RGB}" />
-            
+            <ex:ColorCanvas SelectedColor="{Binding RGB}" UsingAlphaChannel="False" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
+using MiniERP_desktop.Database;
 using MiniERP_desktop.Services.Events;
 using MiniERP_desktop.Services.
 
@@ -16,6 +17,7 @@ namespace MiniERP_desktop.ViewModels
         private object _overviewContent;
         private string _selectedDocumentType;
         private IEventAggregator _eventAggregator;
+        private ERPEntities _dbContext;
 
         public BindableCollection<string> DocumentType
         {
@@ -65,7 +67,7 @@ namespace MiniERP_desktop.ViewModels
             get => _selectedDocumentType;
         }
 
-        public ReportsViewModel(IEventAggregator eventAggregator)
+        public ReportsViewModel(IEventAggregator eventAggregator, ERPEntities dbContext)
         {
             DocumentType = new BindableCollection<string>();
             DocumentType.Add("VAT Invoice");
@@ -73,6 +75,7 @@ namespace MiniERP_desktop.ViewModels
             DocumentType.Add("Good Recieved Notes");
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
+            _dbContext = dbContext;
         }
 
         public void Handle(IScreen e)
@@ -88,7 +91,7 @@ namespace MiniERP_desktop.ViewModels
             {
                 case "VAT Invoice":
                     title = "Invoice VAT";
-                    screen = new InvoiceViewModel(_eventAggregator); break;
+                    screen = new InvoiceViewModel(_eventAggregator, _dbContext); break;
                 case "Good Issued Notes": break;
                 case "Good Recieved Notes;": break;
             }

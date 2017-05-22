@@ -128,6 +128,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Database\Address.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\Build.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
@@ -140,13 +143,16 @@
     <Compile Include="Database\Cordinate.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\Currency.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\Customer.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\database_firewall_rules.cs">
+    <Compile Include="Database\DetailRow.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\DetailRow.cs">
+    <Compile Include="Database\Footer.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Inventory.cs">
@@ -206,8 +212,10 @@
     <Compile Include="Models\TotalRow.cs" />
     <Compile Include="MyBootstrapper.cs" />
     <Compile Include="Services\Events\ColorSelected.cs" />
+    <Compile Include="Services\Events\CompanyOrientationChanged.cs" />
     <Compile Include="Services\Events\ConvertPdf.cs" />
     <Compile Include="Services\Events\HelperScreen.cs" />
+    <Compile Include="Services\Events\LogoChanged.cs" />
     <Compile Include="Services\Events\PageOrientationChanged.cs" />
     <Compile Include="Services\Events\PageSizeChanged.cs" />
     <Compile Include="Services\Events\TitleChanged.cs" />
@@ -407,6 +415,7 @@
       <DependentUpon>MyDb.edmx</DependentUpon>
       <LastGenOutput>MyDb.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\prz_bez_dopisku_podstawa.png" />
     <Resource Include="Images\Paleta.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

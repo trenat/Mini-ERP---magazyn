@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("QR_Code.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("MobileAppV0._1.Resource", IsApplication=true)]
 
-namespace QR_Code
+namespace MobileAppV0._1
 {
 	
 	
@@ -53,25 +53,6 @@ namespace QR_Code
 			}
 			
 			private Drawable()
-			{
-			}
-		}
-		
-		public partial class Id
-		{
-			
-			// aapt resource value: 0x7f050000
-			public const int cameraPreview = 2131034112;
-			
-			// aapt resource value: 0x7f050001
-			public const int txtResult = 2131034113;
-			
-			static Id()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Id()
 			{
 			}
 		}

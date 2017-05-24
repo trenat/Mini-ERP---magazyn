@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="nchar" MaxLength="30" />
+          <Property Name="State" Type="nchar" MaxLength="30" />
+          <Property Name="ZipCode" Type="nchar" MaxLength="15" />
+          <Property Name="Country" Type="nchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="Build">
           <Key>
             <PropertyRef Name="ID" />
@@ -12,6 +22,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AdminID" Type="int" />
           <Property Name="BuildTypeID" Type="int" />
+          <Property Name="AddresID" Type="int" />
           <Property Name="BuildDate" Type="date" />
         </EntityType>
         <EntityType Name="BuildType">
@@ -26,13 +37,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Address" Type="nchar" MaxLength="30" />
-          <Property Name="State" Type="nchar" MaxLength="30" />
-          <Property Name="Zipcode" Type="nchar" MaxLength="10" />
-          <Property Name="Country" Type="nchar" MaxLength="30" />
-          <Property Name="Title" Type="nchar" MaxLength="30" />
+          <Property Name="AddressID" Type="int" />
+          <Property Name="Name" Type="nchar" MaxLength="30" />
           <Property Name="VatNumber" Type="int" />
           <Property Name="CompanyNumber" Type="int" />
+          <Property Name="LogoPath" Type="nchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Cordinate">
           <Key>
@@ -42,6 +51,14 @@
           <Property Name="X" Type="int" />
           <Property Name="Y" Type="int" />
           <Property Name="Z" Type="int" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" />
+          <Property Name="Side" Type="bit" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -53,11 +70,7 @@
           <Property Name="Gender" Type="bit" />
           <Property Name="DateOfBirth" Type="date" />
           <Property Name="Email" Type="nchar" MaxLength="100" />
-          <Property Name="Address" Type="nchar" MaxLength="100" />
-          <Property Name="City" Type="nchar" MaxLength="30" />
-          <Property Name="State" Type="nchar" MaxLength="30" />
-          <Property Name="Zipcode" Type="nchar" MaxLength="10" />
-          <Property Name="Country" Type="nchar" MaxLength="30" />
+          <Property Name="AddressID" Type="int" />
         </EntityType>
         <EntityType Name="DetailRow">
           <Key>
@@ -67,6 +80,14 @@
           <Property Name="Title" Type="nchar" MaxLength="30" />
           <Property Name="ParagraphID" Type="int" />
           <Property Name="InvoiceID" Type="int" />
+        </EntityType>
+        <EntityType Name="Footer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" />
+          <Property Name="Text" Type="nchar" MaxLength="400" />
         </EntityType>
         <EntityType Name="Inventory">
           <Key>
@@ -84,18 +105,23 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="BackColor" Type="nchar" MaxLength="10" />
           <Property Name="TextColor" Type="nchar" MaxLength="10" />
-          <Property Name="ImagePath" Type="nchar" MaxLength="100" />
+          <Property Name="HaveLogo" Type="bit" />
           <Property Name="Title" Type="nchar" MaxLength="30" />
           <Property Name="Reference" Type="nchar" MaxLength="30" />
           <Property Name="BillingDate" Type="date" />
           <Property Name="DueDate" Type="date" />
           <Property Name="ClientID" Type="int" />
           <Property Name="CompanyID" Type="int" />
-          <Property Name="Footer" Type="nchar" MaxLength="50" />
+          <Property Name="FooterID" Type="int" />
           <Property Name="CompanyOrientation" Type="bit" />
+          <Property Name="PageSize" Type="int" />
+          <Property Name="PageOrientation" Type="bit" />
+          <Property Name="LogoWidth" Type="int" />
+          <Property Name="LogoHeight" Type="int" />
+          <Property Name="CurrencyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="InvoiceItem">
           <Key>
@@ -175,6 +201,18 @@
           <Property Name="Email" Type="nchar" MaxLength="100" />
           <Property Name="Phone" Type="char" MaxLength="9" />
         </EntityType>
+        <Association Name="FK_Build_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Build">
+              <PropertyRef Name="AddresID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Build_BuildType">
           <End Role="BuildType" Type="Self.BuildType" Multiplicity="0..1" />
           <End Role="Build" Type="Self.Build" Multiplicity="*" />
@@ -196,6 +234,30 @@
             </Principal>
             <Dependent Role="Build">
               <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="AddressID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -271,6 +333,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Invoice_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Invoice_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
@@ -280,6 +354,18 @@
             </Principal>
             <Dependent Role="Invoice">
               <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_Footer">
+          <End Role="Footer" Type="Self.Footer" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Footer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="FooterID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -356,12 +442,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ERPModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Build" EntityType="Self.Build" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuildType" EntityType="Self.BuildType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cordinate" EntityType="Self.Cordinate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetailRow" EntityType="Self.DetailRow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Footer" EntityType="Self.Footer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceItem" EntityType="Self.InvoiceItem" Schema="dbo" store:Type="Tables" />
@@ -372,6 +461,10 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TotalRow" EntityType="Self.TotalRow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Build_Address" Association="Self.FK_Build_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
           <AssociationSet Name="FK_Build_BuildType" Association="Self.FK_Build_BuildType">
             <End Role="BuildType" EntitySet="BuildType" />
             <End Role="Build" EntitySet="Build" />
@@ -379,6 +472,14 @@
           <AssociationSet Name="FK_Build_User" Association="Self.FK_Build_User">
             <End Role="User" EntitySet="User" />
             <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Address" Association="Self.FK_Company_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Address" Association="Self.FK_Customer_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Customer" EntitySet="Customer" />
           </AssociationSet>
           <AssociationSet Name="FK_DetailRow_Invoice" Association="Self.FK_DetailRow_Invoice">
             <End Role="Invoice" EntitySet="Invoice" />
@@ -404,8 +505,16 @@
             <End Role="Company" EntitySet="Company" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Currency" Association="Self.FK_Invoice_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
           <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
             <End Role="Customer" EntitySet="Customer" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Footer" Association="Self.FK_Invoice_Footer">
+            <End Role="Footer" EntitySet="Footer" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
           <AssociationSet Name="FK_InvoiceItem_Invoice" Association="Self.FK_InvoiceItem_Invoice">
@@ -433,11 +542,124 @@
             <End Role="TotalRow" EntitySet="TotalRow" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ERPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ERPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Address" EntityType="ERPModel.Address" />
+          <EntitySet Name="Build" EntityType="ERPModel.Build" />
+          <EntitySet Name="BuildType" EntityType="ERPModel.BuildType" />
+          <EntitySet Name="Company" EntityType="ERPModel.Company" />
+          <EntitySet Name="Cordinate" EntityType="ERPModel.Cordinate" />
+          <EntitySet Name="Currency" EntityType="ERPModel.Currency" />
+          <EntitySet Name="Customer" EntityType="ERPModel.Customer" />
+          <EntitySet Name="DetailRow" EntityType="ERPModel.DetailRow" />
+          <EntitySet Name="Footer" EntityType="ERPModel.Footer" />
+          <EntitySet Name="Inventory" EntityType="ERPModel.Inventory" />
+          <EntitySet Name="Invoice" EntityType="ERPModel.Invoice" />
+          <EntitySet Name="InvoiceItem" EntityType="ERPModel.InvoiceItem" />
+          <EntitySet Name="Item" EntityType="ERPModel.Item" />
+          <EntitySet Name="Object" EntityType="ERPModel.Object" />
+          <EntitySet Name="ObjectType" EntityType="ERPModel.ObjectType" />
+          <EntitySet Name="Paragraph" EntityType="ERPModel.Paragraph" />
+          <EntitySet Name="sysdiagrams" EntityType="ERPModel.sysdiagrams" />
+          <EntitySet Name="TotalRow" EntityType="ERPModel.TotalRow" />
+          <EntitySet Name="User" EntityType="ERPModel.User" />
+          <AssociationSet Name="FK_Build_Address" Association="ERPModel.FK_Build_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Address" Association="ERPModel.FK_Company_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Address" Association="ERPModel.FK_Customer_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Build_BuildType" Association="ERPModel.FK_Build_BuildType">
+            <End Role="BuildType" EntitySet="BuildType" />
+            <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Build_User" Association="ERPModel.FK_Build_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Build" Association="ERPModel.FK_Inventory_Build">
+            <End Role="Build" EntitySet="Build" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Build" Association="ERPModel.FK_Object_Build">
+            <End Role="Build" EntitySet="Build" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Company" Association="ERPModel.FK_Invoice_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Cordinate" Association="ERPModel.FK_Inventory_Cordinate">
+            <End Role="Cordinate" EntitySet="Cordinate" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Cordinate" Association="ERPModel.FK_Object_Cordinate">
+            <End Role="Cordinate" EntitySet="Cordinate" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Currency" Association="ERPModel.FK_Invoice_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Customer" Association="ERPModel.FK_Invoice_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRow_Invoice" Association="ERPModel.FK_DetailRow_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="DetailRow" EntitySet="DetailRow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailRow_Paragraph" Association="ERPModel.FK_DetailRow_Paragraph">
+            <End Role="Paragraph" EntitySet="Paragraph" />
+            <End Role="DetailRow" EntitySet="DetailRow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Footer" Association="ERPModel.FK_Invoice_Footer">
+            <End Role="Footer" EntitySet="Footer" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Item" Association="ERPModel.FK_Inventory_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="ERPModel.FK_InvoiceItem_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TotalRow_Invoice" Association="ERPModel.FK_TotalRow_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="TotalRow" EntitySet="TotalRow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Item" Association="ERPModel.FK_InvoiceItem_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_ObjectType" Association="ERPModel.FK_Object_ObjectType">
+            <End Role="ObjectType" EntitySet="ObjectType" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Build" Relationship="ERPModel.FK_Build_Address" FromRole="Address" ToRole="Build" />
+          <NavigationProperty Name="Company" Relationship="ERPModel.FK_Company_Address" FromRole="Address" ToRole="Company" />
+          <NavigationProperty Name="Customer" Relationship="ERPModel.FK_Customer_Address" FromRole="Address" ToRole="Customer" />
+        </EntityType>
         <EntityType Name="Build">
           <Key>
             <PropertyRef Name="ID" />
@@ -445,11 +667,13 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AdminID" Type="Int32" />
           <Property Name="BuildTypeID" Type="Int32" />
+          <Property Name="AddresID" Type="Int32" />
           <Property Name="BuildDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="BuildType" Relationship="Self.FK_Build_BuildType" FromRole="Build" ToRole="BuildType" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Build_User" FromRole="Build" ToRole="User" />
-          <NavigationProperty Name="Inventory" Relationship="Self.FK_Inventory_Build" FromRole="Build" ToRole="Inventory" />
-          <NavigationProperty Name="Object" Relationship="Self.FK_Object_Build" FromRole="Build" ToRole="Object" />
+          <NavigationProperty Name="Address" Relationship="ERPModel.FK_Build_Address" FromRole="Build" ToRole="Address" />
+          <NavigationProperty Name="BuildType" Relationship="ERPModel.FK_Build_BuildType" FromRole="Build" ToRole="BuildType" />
+          <NavigationProperty Name="User" Relationship="ERPModel.FK_Build_User" FromRole="Build" ToRole="User" />
+          <NavigationProperty Name="Inventory" Relationship="ERPModel.FK_Inventory_Build" FromRole="Build" ToRole="Inventory" />
+          <NavigationProperty Name="Object" Relationship="ERPModel.FK_Object_Build" FromRole="Build" ToRole="Object" />
         </EntityType>
         <EntityType Name="BuildType">
           <Key>
@@ -457,21 +681,20 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Build" Relationship="Self.FK_Build_BuildType" FromRole="BuildType" ToRole="Build" />
+          <NavigationProperty Name="Build" Relationship="ERPModel.FK_Build_BuildType" FromRole="BuildType" ToRole="Build" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="Zipcode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Country" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="Title" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="AddressID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="VatNumber" Type="Int32" />
           <Property Name="CompanyNumber" Type="Int32" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_Invoice_Company" FromRole="Company" ToRole="Invoice" />
+          <Property Name="LogoPath" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Address" Relationship="ERPModel.FK_Company_Address" FromRole="Company" ToRole="Address" />
+          <NavigationProperty Name="Invoice" Relationship="ERPModel.FK_Invoice_Company" FromRole="Company" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="Cordinate">
           <Key>
@@ -481,8 +704,17 @@
           <Property Name="X" Type="Int32" />
           <Property Name="Y" Type="Int32" />
           <Property Name="Z" Type="Int32" />
-          <NavigationProperty Name="Inventory" Relationship="Self.FK_Inventory_Cordinate" FromRole="Cordinate" ToRole="Inventory" />
-          <NavigationProperty Name="Object" Relationship="Self.FK_Object_Cordinate" FromRole="Cordinate" ToRole="Object" />
+          <NavigationProperty Name="Inventory" Relationship="ERPModel.FK_Inventory_Cordinate" FromRole="Cordinate" ToRole="Inventory" />
+          <NavigationProperty Name="Object" Relationship="ERPModel.FK_Object_Cordinate" FromRole="Cordinate" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Side" Type="Boolean" />
+          <NavigationProperty Name="Invoice" Relationship="ERPModel.FK_Invoice_Currency" FromRole="Currency" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -494,12 +726,9 @@
           <Property Name="Gender" Type="Boolean" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="Zipcode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Country" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_Invoice_Customer" FromRole="Customer" ToRole="Invoice" />
+          <Property Name="AddressID" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="ERPModel.FK_Customer_Address" FromRole="Customer" ToRole="Address" />
+          <NavigationProperty Name="Invoice" Relationship="ERPModel.FK_Invoice_Customer" FromRole="Customer" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="DetailRow">
           <Key>
@@ -509,8 +738,17 @@
           <Property Name="Title" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="ParagraphID" Type="Int32" />
           <Property Name="InvoiceID" Type="Int32" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_DetailRow_Invoice" FromRole="DetailRow" ToRole="Invoice" />
-          <NavigationProperty Name="Paragraph" Relationship="Self.FK_DetailRow_Paragraph" FromRole="DetailRow" ToRole="Paragraph" />
+          <NavigationProperty Name="Invoice" Relationship="ERPModel.FK_DetailRow_Invoice" FromRole="DetailRow" ToRole="Invoice" />
+          <NavigationProperty Name="Paragraph" Relationship="ERPModel.FK_DetailRow_Paragraph" FromRole="DetailRow" ToRole="Paragraph" />
+        </EntityType>
+        <EntityType Name="Footer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="400" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Invoice" Relationship="ERPModel.FK_Invoice_Footer" FromRole="Footer" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="Inventory">
           <Key>
@@ -523,31 +761,38 @@
           <Property Name="MinAmount" Type="Int32" />
           <Property Name="BuildID" Type="Int32" />
           <Property Name="CordinateID" Type="Int32" />
-          <NavigationProperty Name="Build" Relationship="Self.FK_Inventory_Build" FromRole="Inventory" ToRole="Build" />
-          <NavigationProperty Name="Cordinate" Relationship="Self.FK_Inventory_Cordinate" FromRole="Inventory" ToRole="Cordinate" />
-          <NavigationProperty Name="Item" Relationship="Self.FK_Inventory_Item" FromRole="Inventory" ToRole="Item" />
+          <NavigationProperty Name="Build" Relationship="ERPModel.FK_Inventory_Build" FromRole="Inventory" ToRole="Build" />
+          <NavigationProperty Name="Cordinate" Relationship="ERPModel.FK_Inventory_Cordinate" FromRole="Inventory" ToRole="Cordinate" />
+          <NavigationProperty Name="Item" Relationship="ERPModel.FK_Inventory_Item" FromRole="Inventory" ToRole="Item" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="BackColor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="TextColor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ImagePath" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="HaveLogo" Type="Boolean" />
           <Property Name="Title" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="Reference" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="BillingDate" Type="DateTime" Precision="0" />
           <Property Name="DueDate" Type="DateTime" Precision="0" />
           <Property Name="ClientID" Type="Int32" />
           <Property Name="CompanyID" Type="Int32" />
-          <Property Name="Footer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="FooterID" Type="Int32" />
           <Property Name="CompanyOrientation" Type="Boolean" />
-          <NavigationProperty Name="Company" Relationship="Self.FK_Invoice_Company" FromRole="Invoice" ToRole="Company" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Invoice_Customer" FromRole="Invoice" ToRole="Customer" />
-          <NavigationProperty Name="DetailRow" Relationship="Self.FK_DetailRow_Invoice" FromRole="Invoice" ToRole="DetailRow" />
-          <NavigationProperty Name="InvoiceItem" Relationship="Self.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
-          <NavigationProperty Name="TotalRow" Relationship="Self.FK_TotalRow_Invoice" FromRole="Invoice" ToRole="TotalRow" />
+          <Property Name="PageSize" Type="Int32" />
+          <Property Name="PageOrientation" Type="Boolean" />
+          <Property Name="LogoWidth" Type="Int32" />
+          <Property Name="LogoHeight" Type="Int32" />
+          <Property Name="CurrencyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Company" Relationship="ERPModel.FK_Invoice_Company" FromRole="Invoice" ToRole="Company" />
+          <NavigationProperty Name="Currency" Relationship="ERPModel.FK_Invoice_Currency" FromRole="Invoice" ToRole="Currency" />
+          <NavigationProperty Name="Customer" Relationship="ERPModel.FK_Invoice_Customer" FromRole="Invoice" ToRole="Customer" />
+          <NavigationProperty Name="DetailRow" Relationship="ERPModel.FK_DetailRow_Invoice" FromRole="Invoice" ToRole="DetailRow" />
+          <NavigationProperty Name="Footer" Relationship="ERPModel.FK_Invoice_Footer" FromRole="Invoice" ToRole="Footer" />
+          <NavigationProperty Name="InvoiceItem" Relationship="ERPModel.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
+          <NavigationProperty Name="TotalRow" Relationship="ERPModel.FK_TotalRow_Invoice" FromRole="Invoice" ToRole="TotalRow" />
         </EntityType>
         <EntityType Name="InvoiceItem">
           <Key>
@@ -556,11 +801,11 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ItemID" Type="Int32" />
           <Property Name="Amount" Type="Int32" />
-          <Property Name="Discount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="VAT" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="InvoiceID" Type="Int32" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_InvoiceItem_Invoice" FromRole="InvoiceItem" ToRole="Invoice" />
-          <NavigationProperty Name="Item" Relationship="Self.FK_InvoiceItem_Item" FromRole="InvoiceItem" ToRole="Item" />
+          <NavigationProperty Name="Invoice" Relationship="ERPModel.FK_InvoiceItem_Invoice" FromRole="InvoiceItem" ToRole="Invoice" />
+          <NavigationProperty Name="Item" Relationship="ERPModel.FK_InvoiceItem_Item" FromRole="InvoiceItem" ToRole="Item" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -570,8 +815,8 @@
           <Property Name="Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="Inventory" Relationship="Self.FK_Inventory_Item" FromRole="Item" ToRole="Inventory" />
-          <NavigationProperty Name="InvoiceItem" Relationship="Self.FK_InvoiceItem_Item" FromRole="Item" ToRole="InvoiceItem" />
+          <NavigationProperty Name="Inventory" Relationship="ERPModel.FK_Inventory_Item" FromRole="Item" ToRole="Inventory" />
+          <NavigationProperty Name="InvoiceItem" Relationship="ERPModel.FK_InvoiceItem_Item" FromRole="Item" ToRole="InvoiceItem" />
         </EntityType>
         <EntityType Name="Object">
           <Key>
@@ -581,9 +826,9 @@
           <Property Name="BuildID" Type="Int32" />
           <Property Name="CordinateID" Type="Int32" />
           <Property Name="ObjectTypeID" Type="Int32" />
-          <NavigationProperty Name="Build" Relationship="Self.FK_Object_Build" FromRole="Object" ToRole="Build" />
-          <NavigationProperty Name="Cordinate" Relationship="Self.FK_Object_Cordinate" FromRole="Object" ToRole="Cordinate" />
-          <NavigationProperty Name="ObjectType" Relationship="Self.FK_Object_ObjectType" FromRole="Object" ToRole="ObjectType" />
+          <NavigationProperty Name="Build" Relationship="ERPModel.FK_Object_Build" FromRole="Object" ToRole="Build" />
+          <NavigationProperty Name="Cordinate" Relationship="ERPModel.FK_Object_Cordinate" FromRole="Object" ToRole="Cordinate" />
+          <NavigationProperty Name="ObjectType" Relationship="ERPModel.FK_Object_ObjectType" FromRole="Object" ToRole="ObjectType" />
         </EntityType>
         <EntityType Name="ObjectType">
           <Key>
@@ -591,7 +836,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Object" Relationship="Self.FK_Object_ObjectType" FromRole="ObjectType" ToRole="Object" />
+          <NavigationProperty Name="Object" Relationship="ERPModel.FK_Object_ObjectType" FromRole="ObjectType" ToRole="Object" />
         </EntityType>
         <EntityType Name="Paragraph">
           <Key>
@@ -599,13 +844,13 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Paragraph1" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="DetailRow" Relationship="Self.FK_DetailRow_Paragraph" FromRole="Paragraph" ToRole="DetailRow" />
+          <NavigationProperty Name="DetailRow" Relationship="ERPModel.FK_DetailRow_Paragraph" FromRole="Paragraph" ToRole="DetailRow" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -620,15 +865,15 @@
           <Property Name="Value" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Inverse" Type="Boolean" />
           <Property Name="InvoiceID" Type="Int32" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_TotalRow_Invoice" FromRole="TotalRow" ToRole="Invoice" />
+          <NavigationProperty Name="Invoice" Relationship="ERPModel.FK_TotalRow_Invoice" FromRole="TotalRow" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="HashPassword" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="HashPassword" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="isAdmin" Type="Boolean" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
@@ -636,11 +881,47 @@
           <Property Name="Gender" Type="Boolean" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Build" Relationship="Self.FK_Build_User" FromRole="User" ToRole="Build" />
+          <NavigationProperty Name="Build" Relationship="ERPModel.FK_Build_User" FromRole="User" ToRole="Build" />
         </EntityType>
+        <Association Name="FK_Build_Address">
+          <End Type="ERPModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="ERPModel.Build" Role="Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Build">
+              <PropertyRef Name="AddresID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Address">
+          <End Type="ERPModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="ERPModel.Company" Role="Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Address">
+          <End Type="ERPModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="ERPModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Build_BuildType">
-          <End Role="BuildType" Type="Self.BuildType" Multiplicity="0..1" />
-          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <End Type="ERPModel.BuildType" Role="BuildType" Multiplicity="0..1" />
+          <End Type="ERPModel.Build" Role="Build" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BuildType">
               <PropertyRef Name="ID" />
@@ -651,8 +932,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Build_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <End Type="ERPModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ERPModel.Build" Role="Build" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="ID" />
@@ -663,8 +944,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Inventory_Build">
-          <End Role="Build" Type="Self.Build" Multiplicity="0..1" />
-          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <End Type="ERPModel.Build" Role="Build" Multiplicity="0..1" />
+          <End Type="ERPModel.Inventory" Role="Inventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Build">
               <PropertyRef Name="ID" />
@@ -675,8 +956,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Object_Build">
-          <End Role="Build" Type="Self.Build" Multiplicity="0..1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <End Type="ERPModel.Build" Role="Build" Multiplicity="0..1" />
+          <End Type="ERPModel.Object" Role="Object" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Build">
               <PropertyRef Name="ID" />
@@ -687,8 +968,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Invoice_Company">
-          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <End Type="ERPModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="ERPModel.Invoice" Role="Invoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Company">
               <PropertyRef Name="ID" />
@@ -699,8 +980,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Inventory_Cordinate">
-          <End Role="Cordinate" Type="Self.Cordinate" Multiplicity="0..1" />
-          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <End Type="ERPModel.Cordinate" Role="Cordinate" Multiplicity="0..1" />
+          <End Type="ERPModel.Inventory" Role="Inventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cordinate">
               <PropertyRef Name="ID" />
@@ -711,8 +992,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Object_Cordinate">
-          <End Role="Cordinate" Type="Self.Cordinate" Multiplicity="0..1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <End Type="ERPModel.Cordinate" Role="Cordinate" Multiplicity="0..1" />
+          <End Type="ERPModel.Object" Role="Object" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cordinate">
               <PropertyRef Name="ID" />
@@ -722,9 +1003,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Invoice_Currency">
+          <End Type="ERPModel.Currency" Role="Currency" Multiplicity="1" />
+          <End Type="ERPModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Invoice_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <End Type="ERPModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="ERPModel.Invoice" Role="Invoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="ID" />
@@ -735,8 +1028,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DetailRow_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
-          <End Role="DetailRow" Type="Self.DetailRow" Multiplicity="*" />
+          <End Type="ERPModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+          <End Type="ERPModel.DetailRow" Role="DetailRow" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Invoice">
               <PropertyRef Name="ID" />
@@ -747,8 +1040,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DetailRow_Paragraph">
-          <End Role="Paragraph" Type="Self.Paragraph" Multiplicity="0..1" />
-          <End Role="DetailRow" Type="Self.DetailRow" Multiplicity="*" />
+          <End Type="ERPModel.Paragraph" Role="Paragraph" Multiplicity="0..1" />
+          <End Type="ERPModel.DetailRow" Role="DetailRow" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Paragraph">
               <PropertyRef Name="ID" />
@@ -758,9 +1051,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Invoice_Footer">
+          <End Type="ERPModel.Footer" Role="Footer" Multiplicity="0..1" />
+          <End Type="ERPModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Footer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="FooterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Inventory_Item">
-          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
-          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <End Type="ERPModel.Item" Role="Item" Multiplicity="0..1" />
+          <End Type="ERPModel.Inventory" Role="Inventory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Item">
               <PropertyRef Name="ID" />
@@ -771,8 +1076,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InvoiceItem_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
-          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+          <End Type="ERPModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+          <End Type="ERPModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Invoice">
               <PropertyRef Name="ID" />
@@ -783,8 +1088,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TotalRow_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
-          <End Role="TotalRow" Type="Self.TotalRow" Multiplicity="*" />
+          <End Type="ERPModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+          <End Type="ERPModel.TotalRow" Role="TotalRow" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Invoice">
               <PropertyRef Name="ID" />
@@ -795,8 +1100,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InvoiceItem_Item">
-          <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
-          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+          <End Type="ERPModel.Item" Role="Item" Multiplicity="0..1" />
+          <End Type="ERPModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Item">
               <PropertyRef Name="ID" />
@@ -807,8 +1112,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Object_ObjectType">
-          <End Role="ObjectType" Type="Self.ObjectType" Multiplicity="0..1" />
-          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <End Type="ERPModel.ObjectType" Role="ObjectType" Multiplicity="0..1" />
+          <End Type="ERPModel.Object" Role="Object" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ObjectType">
               <PropertyRef Name="ID" />
@@ -818,273 +1123,224 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ERPEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Build" EntityType="Self.Build" />
-          <EntitySet Name="BuildType" EntityType="Self.BuildType" />
-          <EntitySet Name="Company" EntityType="Self.Company" />
-          <EntitySet Name="Cordinate" EntityType="Self.Cordinate" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" />
-          <EntitySet Name="DetailRow" EntityType="Self.DetailRow" />
-          <EntitySet Name="Inventory" EntityType="Self.Inventory" />
-          <EntitySet Name="Invoice" EntityType="Self.Invoice" />
-          <EntitySet Name="InvoiceItem" EntityType="Self.InvoiceItem" />
-          <EntitySet Name="Item" EntityType="Self.Item" />
-          <EntitySet Name="Object" EntityType="Self.Object" />
-          <EntitySet Name="ObjectType" EntityType="Self.ObjectType" />
-          <EntitySet Name="Paragraph" EntityType="Self.Paragraph" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="TotalRow" EntityType="Self.TotalRow" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_Build_BuildType" Association="Self.FK_Build_BuildType">
-            <End Role="BuildType" EntitySet="BuildType" />
-            <End Role="Build" EntitySet="Build" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Build_User" Association="Self.FK_Build_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Build" EntitySet="Build" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Inventory_Build" Association="Self.FK_Inventory_Build">
-            <End Role="Build" EntitySet="Build" />
-            <End Role="Inventory" EntitySet="Inventory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Object_Build" Association="Self.FK_Object_Build">
-            <End Role="Build" EntitySet="Build" />
-            <End Role="Object" EntitySet="Object" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Invoice_Company" Association="Self.FK_Invoice_Company">
-            <End Role="Company" EntitySet="Company" />
-            <End Role="Invoice" EntitySet="Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Inventory_Cordinate" Association="Self.FK_Inventory_Cordinate">
-            <End Role="Cordinate" EntitySet="Cordinate" />
-            <End Role="Inventory" EntitySet="Inventory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Object_Cordinate" Association="Self.FK_Object_Cordinate">
-            <End Role="Cordinate" EntitySet="Cordinate" />
-            <End Role="Object" EntitySet="Object" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Invoice" EntitySet="Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DetailRow_Invoice" Association="Self.FK_DetailRow_Invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="DetailRow" EntitySet="DetailRow" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DetailRow_Paragraph" Association="Self.FK_DetailRow_Paragraph">
-            <End Role="Paragraph" EntitySet="Paragraph" />
-            <End Role="DetailRow" EntitySet="DetailRow" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Inventory_Item" Association="Self.FK_Inventory_Item">
-            <End Role="Item" EntitySet="Item" />
-            <End Role="Inventory" EntitySet="Inventory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="Self.FK_InvoiceItem_Invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TotalRow_Invoice" Association="Self.FK_TotalRow_Invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="TotalRow" EntitySet="TotalRow" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InvoiceItem_Item" Association="Self.FK_InvoiceItem_Item">
-            <End Role="Item" EntitySet="Item" />
-            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Object_ObjectType" Association="Self.FK_Object_ObjectType">
-            <End Role="ObjectType" EntitySet="ObjectType" />
-            <End Role="Object" EntitySet="Object" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ERPModelStoreContainer" CdmEntityContainer="ERPEntities">
+          <EntitySetMapping Name="Address">
+            <EntityTypeMapping TypeName="ERPModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Build">
             <EntityTypeMapping TypeName="ERPModel.Build">
               <MappingFragment StoreEntitySet="Build">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
-                <ScalarProperty Name="BuildTypeID" ColumnName="BuildTypeID" />
                 <ScalarProperty Name="BuildDate" ColumnName="BuildDate" />
+                <ScalarProperty Name="AddresID" ColumnName="AddresID" />
+                <ScalarProperty Name="BuildTypeID" ColumnName="BuildTypeID" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BuildType">
             <EntityTypeMapping TypeName="ERPModel.BuildType">
               <MappingFragment StoreEntitySet="BuildType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Company">
             <EntityTypeMapping TypeName="ERPModel.Company">
               <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="VatNumber" ColumnName="VatNumber" />
+                <ScalarProperty Name="LogoPath" ColumnName="LogoPath" />
                 <ScalarProperty Name="CompanyNumber" ColumnName="CompanyNumber" />
+                <ScalarProperty Name="VatNumber" ColumnName="VatNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cordinate">
             <EntityTypeMapping TypeName="ERPModel.Cordinate">
               <MappingFragment StoreEntitySet="Cordinate">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="X" ColumnName="X" />
-                <ScalarProperty Name="Y" ColumnName="Y" />
                 <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currency">
+            <EntityTypeMapping TypeName="ERPModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="Side" ColumnName="Side" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="ERPModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DetailRow">
             <EntityTypeMapping TypeName="ERPModel.DetailRow">
               <MappingFragment StoreEntitySet="DetailRow">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ParagraphID" ColumnName="ParagraphID" />
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="ParagraphID" ColumnName="ParagraphID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Footer">
+            <EntityTypeMapping TypeName="ERPModel.Footer">
+              <MappingFragment StoreEntitySet="Footer">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Inventory">
             <EntityTypeMapping TypeName="ERPModel.Inventory">
               <MappingFragment StoreEntitySet="Inventory">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-                <ScalarProperty Name="ActAmount" ColumnName="ActAmount" />
-                <ScalarProperty Name="RecomendedAmount" ColumnName="RecomendedAmount" />
-                <ScalarProperty Name="MinAmount" ColumnName="MinAmount" />
-                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
                 <ScalarProperty Name="CordinateID" ColumnName="CordinateID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="MinAmount" ColumnName="MinAmount" />
+                <ScalarProperty Name="RecomendedAmount" ColumnName="RecomendedAmount" />
+                <ScalarProperty Name="ActAmount" ColumnName="ActAmount" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Invoice">
             <EntityTypeMapping TypeName="ERPModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="BackColor" ColumnName="BackColor" />
-                <ScalarProperty Name="TextColor" ColumnName="TextColor" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
-                <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
-                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="Footer" ColumnName="Footer" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="LogoHeight" ColumnName="LogoHeight" />
+                <ScalarProperty Name="LogoWidth" ColumnName="LogoWidth" />
+                <ScalarProperty Name="PageOrientation" ColumnName="PageOrientation" />
+                <ScalarProperty Name="PageSize" ColumnName="PageSize" />
                 <ScalarProperty Name="CompanyOrientation" ColumnName="CompanyOrientation" />
+                <ScalarProperty Name="FooterID" ColumnName="FooterID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="HaveLogo" ColumnName="HaveLogo" />
+                <ScalarProperty Name="TextColor" ColumnName="TextColor" />
+                <ScalarProperty Name="BackColor" ColumnName="BackColor" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InvoiceItem">
             <EntityTypeMapping TypeName="ERPModel.InvoiceItem">
               <MappingFragment StoreEntitySet="InvoiceItem">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="VAT" ColumnName="VAT" />
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Item">
             <EntityTypeMapping TypeName="ERPModel.Item">
               <MappingFragment StoreEntitySet="Item">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Object">
             <EntityTypeMapping TypeName="ERPModel.Object">
               <MappingFragment StoreEntitySet="Object">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
-                <ScalarProperty Name="CordinateID" ColumnName="CordinateID" />
                 <ScalarProperty Name="ObjectTypeID" ColumnName="ObjectTypeID" />
+                <ScalarProperty Name="CordinateID" ColumnName="CordinateID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ObjectType">
             <EntityTypeMapping TypeName="ERPModel.ObjectType">
               <MappingFragment StoreEntitySet="ObjectType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Paragraph">
             <EntityTypeMapping TypeName="ERPModel.Paragraph">
               <MappingFragment StoreEntitySet="Paragraph">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Paragraph1" ColumnName="Paragraph" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="ERPModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TotalRow">
             <EntityTypeMapping TypeName="ERPModel.TotalRow">
               <MappingFragment StoreEntitySet="TotalRow">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Inverse" ColumnName="Inverse" />
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="Inverse" ColumnName="Inverse" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="ERPModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="HashPassword" ColumnName="HashPassword" />
-                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+                <ScalarProperty Name="HashPassword" ColumnName="HashPassword" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

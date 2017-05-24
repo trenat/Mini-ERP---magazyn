@@ -6,16 +6,44 @@
              xmlns:local="clr-namespace:MiniERP_desktop.Views"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="600">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Border}" x:Key="Hide" >
+            <Setter Property="Margin" Value="2,8,8,8"/>
+            <Style.Triggers>
+                <DataTrigger
+                             Value="{x:Null}" Binding="{Binding Content, ElementName=HelperContent}">
+                    <Setter Property="Margin"
+                            Value="0,0,0,0" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <DockPanel>
-        <DockPanel Dock="Top">
-            <Label DockPanel.Dock="Left">Typ dokumentu: </Label>
-            <ComboBox x:Name="DocumentType" DockPanel.Dock="Right"/>
-        </DockPanel>
-        <DockPanel>
-            <ContentControl x:Name="Content" DockPanel.Dock="Top"/>
+        <Border CornerRadius="15" Margin="8" Background="#FFF5F5F5" HorizontalAlignment="Left">
+            <DockPanel Margin ="10">
+                <DockPanel Dock="Top">
+                    <Label DockPanel.Dock="Left">Document type:</Label>
+                    <ComboBox x:Name="DocumentType" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="150"/>
+                </DockPanel>
+                <DockPanel>
+                    <ContentControl x:Name="Content" DockPanel.Dock="Top"/>
+                    <Button x:Name="Generate" Margin="0,10,0,0"  DockPanel.Dock="Bottom" Content="Generate" VerticalAlignment="Top" Width="74"/>
+                </DockPanel>
+            </DockPanel>
+        </Border>
+        <DockPanel DockPanel.Dock="Right" LastChildFill="False">
+            <Border Style="{StaticResource Hide}" DockPanel.Dock="Left"  CornerRadius="15" Background="#FFEFEFEF" HorizontalAlignment="Left">
+                <ContentControl  x:Name="HelperContent"  DockPanel.Dock="Top"/>
+           </Border>
+            <Border DockPanel.Dock="Left" Margin="2,8,8,8" CornerRadius="15"  Background="#FFEFEFEF" HorizontalAlignment="Left">
+                <ContentControl  x:Name="OverviewContent" DockPanel.Dock="Top"/>
+            </Border>
+         
 
-            <Button DockPanel.Dock="Bottom" Content="Generuj" VerticalAlignment="Top" Width="75"/>
-        </DockPanel>   
+
+
+        </DockPanel>
+        
     </DockPanel>
 </UserControl>

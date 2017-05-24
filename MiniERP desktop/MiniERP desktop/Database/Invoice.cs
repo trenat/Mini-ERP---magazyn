@@ -25,20 +25,27 @@ namespace MiniERP_desktop.Database
         public int ID { get; set; }
         public string BackColor { get; set; }
         public string TextColor { get; set; }
-        public string ImagePath { get; set; }
+        public Nullable<bool> HaveLogo { get; set; }
         public string Title { get; set; }
         public string Reference { get; set; }
         public Nullable<System.DateTime> BillingDate { get; set; }
         public Nullable<System.DateTime> DueDate { get; set; }
         public Nullable<int> ClientID { get; set; }
         public Nullable<int> CompanyID { get; set; }
-        public string Footer { get; set; }
+        public Nullable<int> FooterID { get; set; }
         public Nullable<bool> CompanyOrientation { get; set; }
+        public Nullable<int> PageSize { get; set; }
+        public Nullable<bool> PageOrientation { get; set; }
+        public Nullable<int> LogoWidth { get; set; }
+        public Nullable<int> LogoHeight { get; set; }
+        public int CurrencyID { get; set; }
     
         public virtual Company Company { get; set; }
+        public virtual Currency Currency { get; set; }
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetailRow> DetailRow { get; set; }
+        public virtual Footer Footer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceItem> InvoiceItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

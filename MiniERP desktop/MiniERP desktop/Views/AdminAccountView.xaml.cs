@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace MiniERP_desktop.Views
 {
     /// <summary>
-    /// Interaction logic for InvoiceView.xaml
+    /// Interaction logic for AdminAccountView.xaml
     /// </summary>
-    public partial class InvoiceView : UserControl
+    public partial class AdminAccountView : UserControl
     {
-        public InvoiceView()
+        public AdminAccountView()
         {
             InitializeComponent();
         }
-
     }
 }

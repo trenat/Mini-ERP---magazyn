@@ -5,35 +5,159 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MiniERP_desktop.Views"
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:models="clr-namespace:MiniERP_desktop.Models"
+            
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:ex="http://schemas.xceed.com/wpf/xaml/toolkit"
+         
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="300">
+             d:DesignHeight="500" d:DesignWidth="400" >
+    <UserControl.Resources>
 
-    <Grid Background="WhiteSmoke">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" Text="Page Size" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0"/>
-        <TextBlock Grid.Column="0" Text="Page Orientation" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,27,0,0"/>
-        <TextBlock Grid.Column="0" Text="Currency" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,49,0,0"/>
-        <TextBlock Grid.Column="0" Text="Background Color" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,71,0,0"/>
-        <TextBlock Grid.Column="0" Text="Image Path" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,93,0,0"/>
-        <TextBlock Grid.Column="0" Text="Image Size" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,115,0,0"/>
-        <TextBlock Grid.Column="0" Text="Title" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,137,0,0"/>
-        <TextBlock Grid.Column="0" Text="Reference" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,159,0,0"/>
-        <TextBlock Grid.Column="0" Text="BillingDate" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,181,0,0"/>
-        <TextBlock Grid.Column="0" Text="Due Time" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,203,0,0"/>
-        <TextBlock Grid.Column="0" Text="Client" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,225,0,0"/>
-        <TextBlock Grid.Column="0" Text="Company" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,247,0,0"/>
-        <TextBlock Grid.Column="0" Text="Company Orientation" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,269,0,0"/>
-        <TextBlock Grid.Column="0" Text="Details" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,291,0,-7"/>
-        <TextBlock Grid.Column="0" Text="Footer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,313,0,0"/>
-        <TextBlock Grid.Column="0" Text="Items" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,334,0,0"/>
-        <TextBlock Grid.Column="0" Text="Totals" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,356,0,0"/>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}" x:Key="TBl">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="130"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style TargetType="ex:MaskedTextBox">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style TargetType="WrapPanel">
+            <Setter Property="Width" Value="260"/>
+
+        </Style>
+        <Style TargetType="StackPanel" x:Key="HideLogo">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=AddLogo, Path=IsChecked}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+    <!--Styles -->
+    <DockPanel>
+        <Grid Background="WhiteSmoke" VerticalAlignment="Center"  HorizontalAlignment="Center">
+            <StackPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Client"/>
+                    <Label  Content="[Empty]"/>
+                    <Button x:Name="SelectClient" Content="Find"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Items"/>
+                    <Label Content="[Empty]"/>
+                    <Button Content="Edit"  x:Name="EditItems"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Company"/>
+                    <Label Content="[Default]" />
+                    <Button Content="Edit"/>
+                </DockPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Company Orientation"/>
+                    <ComboBox x:Name="CompanyOrient" />
+                </WrapPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Currency"/>
+                    <ComboBox x:Name="Currency" Width="86"/>
+                    <Button Content="Edit"/>
+                </DockPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Add logo"/>
+                    <CheckBox x:Name="AddLogo"/>
+                </WrapPanel>
+                <StackPanel Style="{StaticResource HideLogo}">
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource TBl}" Text="Logo Width"/>
+                        <TextBox  x:Name="LogoWidth"/>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource TBl}" Text="Logo Height"/>
+                        <TextBox  x:Name="LogoHeight"/>
+                    </WrapPanel>
+                </StackPanel>
+
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}"  Text="Title"/>
+                    <TextBox  x:Name="MyInvoice_Title"/>
+
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="BillingDate"/>
+                    <DatePicker  x:Name="MyInvoice_BillingDate" />
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Due Time"/>
+                    <DatePicker   x:Name="MyInvoice_DueDate" />
+                </WrapPanel>
+
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Reference"/>
+                    <TextBox x:Name="MyInvoice_Reference"/>
+                </WrapPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Details"/>
+                    <Label Content="[Default]" />
+                    <Button Content="Edit"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Footer"/>
+                    <Label Content="[Default]" />
+                    <Button Content="Edit"/>
+                </DockPanel>
+                <WrapPanel >
+                    <TextBlock Style="{StaticResource TBl}" Text="Background Color"/>
+                    <TextBox x:Name="MyInvoice_BackColor"
+                             cal:Message.Attach="[Event GotFocus] = [Action SelectColor(1)]"
+                             IsReadOnly="True"/>
+                </WrapPanel>
+                <WrapPanel >
+                    <TextBlock Style="{StaticResource TBl}" Text="Text Color" />
+                    <TextBox x:Name="MyInvoice_TextColor"
+                             cal:Message.Attach="[Event GotFocus] = [Action SelectColor(2)]"
+                             IsReadOnly="True"/>
+                </WrapPanel>
+                <WrapPanel >
+                    <TextBlock Style="{StaticResource TBl}" Text="Page Size" />
+                    <ComboBox x:Name="SizeOption" />
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Style="{StaticResource TBl}" Text="Page Orientation"/>
+                    <ComboBox x:Name="OrientOption" />
+                </WrapPanel>
 
 
-        <ComboBox  Grid.Column="1" MinHeight="20" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0"/>
-        <ComboBox  Grid.Column="1" MinHeight="20" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0"/>
-        <ComboBox  Grid.Column="1" MinHeight="20" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0"/>
-    </Grid>
+
+
+
+
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </UserControl>

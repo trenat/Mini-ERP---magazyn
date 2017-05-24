@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MiniERP_desktop.Views
+namespace MiniERP_desktop.Views.ToolboxHelpers
 {
     /// <summary>
-    /// Interaction logic for InvoiceView.xaml
+    /// Interaction logic for ColorPickerView.xaml
     /// </summary>
-    public partial class InvoiceView : UserControl
+    public partial class ColorPickerView : UserControl
     {
-        public InvoiceView()
+        public ColorPickerView()
         {
             InitializeComponent();
         }
-
     }
 }

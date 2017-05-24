@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using MiniERP_desktop.Database;
@@ -27,49 +28,24 @@ namespace MiniERP_desktop
         }
         protected override void Configure()
         {
-            
-            
                 
-              _container = new SimpleContainer();
-
-            //using (ERPEntities e = new ERPEntities())
-            //{
-            //    e.User.Add(new User()
-            //    {
-            //        Age = 15,
-            //        Email = "dawiddo14@gmail.com",
-            //        FirstName = "Dawid",
-            //        Gender = true,
-            //        HashPassword = PasswordHasher.HashPassword("123456"),
-            //        LastName = "Sitek",
-            //        Login = "Admin",
-            //        Phone = "575079835",
-            //        isAdmin = true
-            //    });
-            //    e.SaveChanges();
-
-            //}
-
-                _container.Instance(_container);
-
-            ERPEntities dbContext = new ERPEntities();
-
+            _container = new SimpleContainer();
+            _container.Instance(_container);
+            
             _container
-                .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
-                //.
-            _container.Instance<ERPEntities>(dbContext);
+                .Instance(new ERPEntities())
+                .Instance<IWindowManager>(new WindowManager())
+                .Instance<IEventAggregator>(new EventAggregator());
             _container
                 .PerRequest<LoginViewModel>(); 
-            //.PerRequest<MenuViewModel>()
-            //.PerRequest<BindingsViewModel>()
-            //.PerRequest<ActionsViewModel>()
-            //.PerRequest<CoroutineViewModel>()
-            //.PerRequest<ExecuteViewModel>()
-            //.PerRequest<EventAggregationViewModel>()
-            //.PerRequest<DesignTimeViewModel>()
-            //.PerRequest<ConductorViewModel>()
-            //.PerRequest<BubblingViewModel>();
+
+            MessageBinder.SpecialValues.Add("$mousepoint", ctx =>
+            {
+                var e = ctx.EventArgs as MouseEventArgs;
+                if (e == null)
+                    return null;
+                return e.GetPosition(ctx.Source);
+            });
         }
 
       

@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="MiniERP_desktop.Views.OverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MiniERP_desktop.Views"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:ex="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:documentObjectModel="clr-namespace:MigraDoc.DocumentObjectModel;assembly=MigraDoc.DocumentObjectModel-wpf"
+             xmlns:helpers="clr-namespace:MiniERP_desktop.Helpers"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200">
+
+    <Grid VerticalAlignment="Top" Width="{Binding PageWidth}" Height="{Binding PageHeight}" Margin="18,8,24,14">
+        <Grid.Effect>
+            <DropShadowEffect/>
+        </Grid.Effect>
+        <ex:RichTextBox IsReadOnly="True">
+            <RichTextBox.Document>
+                <FlowDocument   AllowDrop="False" >
+
+                    <Section>
+                        <Table Padding="0,15,0,0" >
+                            <Table.Columns>
+                                <TableColumn  />
+                                <TableColumn Width="10" />
+                                <TableColumn />
+                            </Table.Columns>
+                            <TableRowGroup>
+                              
+                              <TableRow>
+                                    <TableCell>
+                                        <Paragraph>
+                                            <Image Visibility="{Binding AddLogo}" HorizontalAlignment="Left" Source="../Images/prz_bez_dopisku_podstawa.png" Height="{Binding LogoHeigt}" Width ="{Binding LogoWidth}" Stretch="Fill"/>
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell/>
+                                    <TableCell>
+                                        <Paragraph >
+                                            <LineBreak></LineBreak>
+                                            <Run FontSize="16" Text="{Binding Title}" Block.TextAlignment="Right"/>
+                                        </Paragraph>
+
+                                    </TableCell>
+                                </TableRow>
+                            </TableRowGroup>
+                        </Table>
+                    </Section>
+                    <Section>
+                        <Table>
+                            <Table.Columns>
+                                <TableColumn x:Name="Addres1Width" />
+                                <TableColumn Width="40" />
+                                <TableColumn x:Name="Addres2Width" />
+                            </Table.Columns>
+                            <TableRowGroup>
+                                <TableRow Foreground="{Binding TextColor}">
+                                    <TableCell>
+                                        <Paragraph>
+                                            <Run Text="{Binding LeftAddress}"/>
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            <Run Text="{Binding RightAddress}"/>
+                                        </Paragraph>
+                                    </TableCell>
+                                </TableRow>
+                            </TableRowGroup>
+                        </Table>
+                    </Section>
+                    <Section>
+                        <Table>
+                            <Table.Columns>
+                                <TableColumn x:Name="InvoiceColumn1" />
+                                <TableColumn x:Name="InvoiceColumn2" />
+                            </Table.Columns>
+                            <TableRowGroup >
+                                <TableRowGroup.Rows>
+                                    <TableRow  FontSize="10" FontWeight="Bold" Foreground="{Binding TextColor}"  >
+
+                                        <TableRow.Cells >
+
+                                            <TableCell BorderThickness="0,0,0,1" BorderBrush="{Binding TextColor}">
+
+                                                <Paragraph>
+                                                    Product
+                                                </Paragraph>
+                                            </TableCell>
+                                            <TableCell BorderThickness="0,0,0,1" BorderBrush="{Binding TextColor}">
+                                                <Paragraph>
+                                                    Amount
+                                                </Paragraph>
+                                            </TableCell >
+
+                                        </TableRow.Cells>
+                                    </TableRow>
+                                    <TableRow FontSize="9" >
+                                        <TableCell Background="{Binding BackColor}">
+                                            <Paragraph>
+                                                blabla
+                                            </Paragraph>
+                                            <Paragraph Foreground="Gray">
+                                                Blabla Description
+                                            </Paragraph>
+                                        </TableCell>
+                                        <TableCell Background="{Binding BackColor}">
+                                            <Paragraph>
+                                                blabla
+                                            </Paragraph>
+                                            <Paragraph Foreground="Gray">
+                                                Blabla Description
+                                            </Paragraph>
+                                        </TableCell>
+
+                                    </TableRow>
+                                    <TableRow FontSize="9" >
+                                    </TableRow>
+                                </TableRowGroup.Rows>
+
+
+                            </TableRowGroup>
+                        </Table>
+                    </Section>
+                </FlowDocument>
+                <!--<Paragraph />-->
+            </RichTextBox.Document>
+        </ex:RichTextBox>
+
+        <helpers:ExtendedBinding Source="{Binding ElementName=Addres1Width, Path=Width}" Target="{Binding Addres1Width}" />
+        <helpers:ExtendedBinding Source="{Binding ElementName=Addres2Width, Path=Width}" Target="{Binding Addres2Width}" />
+        <helpers:ExtendedBinding Source="{Binding ElementName=InvoiceColumn1, Path=Width}" Target="{Binding InvoiceColumnWidth}" />
+        <helpers:ExtendedBinding Source="{Binding ElementName=InvoiceColumn2, Path=Width}" Target="{Binding InvoiceColumnWidth}" />
+    </Grid>
+
+</UserControl>

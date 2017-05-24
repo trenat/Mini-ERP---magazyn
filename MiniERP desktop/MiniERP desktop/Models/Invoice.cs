@@ -12,7 +12,6 @@ namespace MiniERP_desktop.Models
         public SizeOption PageSize { get; set; }
         public OrientationOption PageOrientation { get; set; }
         public string Currency { get; set; }
-
         public string BackColor { get; set; }
         public string TextColor { get; set; }
         public string Image { get; set; }

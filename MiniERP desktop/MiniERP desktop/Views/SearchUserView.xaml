@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="MiniERP_desktop.Views.SearchUserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MiniERP_desktop.Views"       
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:ex="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:dg="http://schemas.xceed.com/wpf/xaml/datagrid"
+
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="500">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="ex:MaskedTextBox">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="5,2,5,2"/>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel Margin="8" Width="340">
+        <WrapPanel>
+            <TextBlock Text="First Name"></TextBlock>
+            <TextBox/>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBlock Text="Last Name"></TextBlock>
+            <TextBox/>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBlock Text="Gender"></TextBlock>
+            <ComboBox/>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBlock Text="Age"></TextBlock>
+            <TextBox/>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBlock Text="City"></TextBlock>
+            <TextBox/>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBlock Text="E-mail"></TextBlock>
+            <TextBox/>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBlock Text="Phone"></TextBlock>
+
+            <ex:MaskedTextBox Mask="000 000 000" SkipLiterals="True"  ValueDataType="{x:Type sys:Int16}"/>
+        </WrapPanel>
+        <dg:DataGridControl Margin="5">
+
+            
+            <dg:DataGridControl.Columns>
+               <dg:Column FieldName="FirstName"
+                             IsMainColumn="True" Title="Name">
+                </dg:Column>
+                <dg:Column FieldName="Surname"/>
+                <dg:Column FieldName="Lastname"/>
+                <dg:Column FieldName="Gender"/>
+                <dg:Column FieldName="Age"/>
+                <dg:Column FieldName="City"/>
+                <dg:Column FieldName="E-mail"/>
+                <dg:Column FieldName="Phone"/>
+            </dg:DataGridControl.Columns>
+        </dg:DataGridControl>
+    </StackPanel>
+</UserControl>

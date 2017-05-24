@@ -12,22 +12,18 @@ namespace MiniERP_desktop.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Company
+    public partial class Currency
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Company()
+        public Currency()
         {
             this.Invoice = new HashSet<Invoice>();
         }
     
         public int ID { get; set; }
-        public Nullable<int> AddressID { get; set; }
         public string Name { get; set; }
-        public Nullable<int> VatNumber { get; set; }
-        public Nullable<int> CompanyNumber { get; set; }
-        public string LogoPath { get; set; }
+        public Nullable<bool> Side { get; set; }
     
-        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoice { get; set; }
     }

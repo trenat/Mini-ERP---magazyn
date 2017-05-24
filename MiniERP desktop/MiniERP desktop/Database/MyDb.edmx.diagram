@@ -4,38 +4,46 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5107b214fa7a47c698964e034e067418" Name="Diagram1" ZoomLevel="55">
-        <EntityTypeShape EntityType="ERPModel.Build" Width="1.5" PointX="10" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.BuildType" Width="1.5" PointX="7.75" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.Company" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.Cordinate" Width="1.5" PointX="10" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.Customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.DetailRow" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.Inventory" Width="1.5" PointX="12.25" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.Invoice" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.InvoiceItem" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.Item" Width="1.5" PointX="6" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.Object" Width="1.5" PointX="12.25" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.ObjectType" Width="1.5" PointX="10" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.Paragraph" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.TotalRow" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERPModel.User" Width="1.5" PointX="7.75" PointY="14.5" IsExpanded="true" />
-        <AssociationConnector Association="ERPModel.FK_Build_BuildType" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_Build_User" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_Inventory_Build" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_Object_Build" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_Invoice_Company" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_Inventory_Cordinate" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_Object_Cordinate" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_Invoice_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_DetailRow_Invoice" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_DetailRow_Paragraph" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_Inventory_Item" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_InvoiceItem_Invoice" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_TotalRow_Invoice" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_InvoiceItem_Item" ManuallyRouted="false" />
-        <AssociationConnector Association="ERPModel.FK_Object_ObjectType" ManuallyRouted="false" />
+      <Diagram DiagramId="5107b214fa7a47c698964e034e067418" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="ERPModel.Address" Width="1.5" PointX="0.75" PointY="9.875" />
+        <EntityTypeShape EntityType="ERPModel.Build" Width="1.5" PointX="6" PointY="9.625" />
+        <EntityTypeShape EntityType="ERPModel.BuildType" Width="1.5" PointX="3.75" PointY="12.25" />
+        <EntityTypeShape EntityType="ERPModel.Company" Width="1.5" PointX="3" PointY="15.25" />
+        <EntityTypeShape EntityType="ERPModel.Cordinate" Width="1.5" PointX="6" PointY="2.25" />
+        <EntityTypeShape EntityType="ERPModel.Currency" Width="1.5" PointX="6" PointY="13.75" />
+        <EntityTypeShape EntityType="ERPModel.Customer" Width="1.5" PointX="3" PointY="8.125" />
+        <EntityTypeShape EntityType="ERPModel.DetailRow" Width="1.5" PointX="13.5" PointY="11.875" />
+        <EntityTypeShape EntityType="ERPModel.Footer" Width="1.5" PointX="6" PointY="16.375" />
+        <EntityTypeShape EntityType="ERPModel.Inventory" Width="1.5" PointX="11.25" PointY="9.625" />
+        <EntityTypeShape EntityType="ERPModel.Invoice" Width="1.5" PointX="8.25" PointY="10.125" />
+        <EntityTypeShape EntityType="ERPModel.InvoiceItem" Width="1.5" PointX="10.5" PointY="13.625" />
+        <EntityTypeShape EntityType="ERPModel.Item" Width="1.5" PointX="9" PointY="3" />
+        <EntityTypeShape EntityType="ERPModel.Object" Width="1.5" PointX="8.25" PointY="6.875" />
+        <EntityTypeShape EntityType="ERPModel.ObjectType" Width="1.5" PointX="6" PointY="5.875" />
+        <EntityTypeShape EntityType="ERPModel.Paragraph" Width="1.5" PointX="11.25" PointY="7.125" />
+        <EntityTypeShape EntityType="ERPModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ERPModel.TotalRow" Width="1.5" PointX="10.5" PointY="18.125" />
+        <EntityTypeShape EntityType="ERPModel.User" Width="1.5" PointX="3.75" PointY="3.375" />
+        <AssociationConnector Association="ERPModel.FK_Build_Address" />
+        <AssociationConnector Association="ERPModel.FK_Company_Address" />
+        <AssociationConnector Association="ERPModel.FK_Customer_Address" />
+        <AssociationConnector Association="ERPModel.FK_Build_BuildType" />
+        <AssociationConnector Association="ERPModel.FK_Build_User" />
+        <AssociationConnector Association="ERPModel.FK_Inventory_Build" />
+        <AssociationConnector Association="ERPModel.FK_Object_Build" />
+        <AssociationConnector Association="ERPModel.FK_Invoice_Company" />
+        <AssociationConnector Association="ERPModel.FK_Inventory_Cordinate" />
+        <AssociationConnector Association="ERPModel.FK_Object_Cordinate" />
+        <AssociationConnector Association="ERPModel.FK_Invoice_Currency" />
+        <AssociationConnector Association="ERPModel.FK_Invoice_Customer" />
+        <AssociationConnector Association="ERPModel.FK_DetailRow_Invoice" />
+        <AssociationConnector Association="ERPModel.FK_DetailRow_Paragraph" />
+        <AssociationConnector Association="ERPModel.FK_Invoice_Footer" />
+        <AssociationConnector Association="ERPModel.FK_Inventory_Item" />
+        <AssociationConnector Association="ERPModel.FK_InvoiceItem_Invoice" />
+        <AssociationConnector Association="ERPModel.FK_TotalRow_Invoice" />
+        <AssociationConnector Association="ERPModel.FK_InvoiceItem_Item" />
+        <AssociationConnector Association="ERPModel.FK_Object_ObjectType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

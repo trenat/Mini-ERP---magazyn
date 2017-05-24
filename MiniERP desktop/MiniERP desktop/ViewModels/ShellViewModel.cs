@@ -10,6 +10,9 @@ namespace MiniERP_desktop.ViewModels
         private readonly SimpleContainer _container;
         private readonly User _currentUser; 
         private object _controlContent;
+        private IEventAggregator _eventAggregator;
+        private ERPEntities _dbContext;
+
         public User CurrentUser
         {
             get => _currentUser;
@@ -24,11 +27,13 @@ namespace MiniERP_desktop.ViewModels
             }
         }
 
-        public ShellViewModel(SimpleContainer container, User user)
+        public ShellViewModel(SimpleContainer container, User user, IEventAggregator eventAggregator, ERPEntities dbContext)
         {
             _container = container;
             _currentUser = user;
             _windowManager = container.GetInstance<WindowManager>();
+            _eventAggregator = eventAggregator;
+            _dbContext = dbContext;
         }
 
         protected override void OnInitialize()
@@ -55,7 +60,7 @@ namespace MiniERP_desktop.ViewModels
         {
             if (_currentUser.isAdmin)
             {
-                
+                ControlContent = new AdminAccountViewModel(_container);
             }
             else
             {
@@ -74,7 +79,7 @@ namespace MiniERP_desktop.ViewModels
 
         public void Reports()
         {
-            ControlContent = new ReportsViewModel()
+            ControlContent = new ReportsViewModel(_eventAggregator, _dbContext)
             {
                 DisplayName = "Tab "// + count++
             };

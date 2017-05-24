@@ -85,6 +85,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -103,12 +104,33 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Database\Address.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\Build.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
@@ -121,10 +143,16 @@
     <Compile Include="Database\Cordinate.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\Currency.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\Customer.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\DetailRow.cs">
+      <DependentUpon>MyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Footer.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Inventory.cs">
@@ -172,7 +200,10 @@
     <Compile Include="Database\User.cs">
       <DependentUpon>MyDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ExtendedBinidng.cs" />
+    <Compile Include="Helpers\MigraDocHelper.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\DetailRow.cs" />
     <Compile Include="Models\Invoice.cs" />
@@ -180,25 +211,48 @@
     <Compile Include="Models\Options.cs" />
     <Compile Include="Models\TotalRow.cs" />
     <Compile Include="MyBootstrapper.cs" />
+    <Compile Include="Services\Events\ColorSelected.cs" />
+    <Compile Include="Services\Events\CompanyOrientationChanged.cs" />
+    <Compile Include="Services\Events\ConvertPdf.cs" />
+    <Compile Include="Services\Events\HelperScreen.cs" />
+    <Compile Include="Services\Events\LogoChanged.cs" />
+    <Compile Include="Services\Events\PageOrientationChanged.cs" />
+    <Compile Include="Services\Events\PageSizeChanged.cs" />
+    <Compile Include="Services\Events\TitleChanged.cs" />
+    <Compile Include="Services\InvoicerApi.cs" />
     <Compile Include="Services\PasswordHasher.cs" />
     <Compile Include="Services\PdfInvoice.cs" />
     <Compile Include="TabView.xaml.cs">
       <DependentUpon>TabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TabViewModel.cs" />
+    <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\AdminAccountViewModel.cs" />
     <Compile Include="ViewModels\InvoiceViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="ViewModels\ReportsViewModel.cs" />
+    <Compile Include="ViewModels\SearchUserViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StorageViewModel.cs" />
+    <Compile Include="ViewModels\ToolboxHelpers\ColorPickerViewModel.cs" />
+    <Compile Include="Views\AdminAccountView.xaml.cs">
+      <DependentUpon>AdminAccountView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InvoiceView.xaml.cs">
       <DependentUpon>InvoiceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OverviewView.xaml.cs">
+      <DependentUpon>OverviewView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ReportsView.xaml.cs">
       <DependentUpon>ReportsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchUserView.xaml.cs">
+      <DependentUpon>SearchUserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -210,7 +264,17 @@
     <Compile Include="Views\StorageView.xaml.cs">
       <DependentUpon>StorageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ToolboxHelpers\ColorPickerView.xaml.cs">
+      <DependentUpon>ColorPickerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserManagmentView.xaml.cs">
+      <DependentUpon>UserManagmentView.xaml</DependentUpon>
+    </Compile>
     <Page Include="TabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,7 +286,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\OverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ReportsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SearchUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +303,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StorageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ToolboxHelpers\ColorPickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserManagmentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -335,6 +415,8 @@
       <DependentUpon>MyDb.edmx</DependentUpon>
       <LastGenOutput>MyDb.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\prz_bez_dopisku_podstawa.png" />
+    <Resource Include="Images\Paleta.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -25,12 +25,15 @@ namespace MiniERP_desktop.Database
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Build> Build { get; set; }
         public virtual DbSet<BuildType> BuildType { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Cordinate> Cordinate { get; set; }
+        public virtual DbSet<Currency> Currency { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<DetailRow> DetailRow { get; set; }
+        public virtual DbSet<Footer> Footer { get; set; }
         public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<Invoice> Invoice { get; set; }
         public virtual DbSet<InvoiceItem> InvoiceItem { get; set; }

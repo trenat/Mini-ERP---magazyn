@@ -11,8 +11,6 @@ namespace MobileApp_alpha_v0._0._0._0._1
     [Activity(Label = "MobileApp_alpha_v0._0._0._0._1", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        int count = 2;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);

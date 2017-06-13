@@ -10,16 +10,18 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="700">
-    <Grid>
+    <Grid >
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Gainsboro" Offset="0"/>
                 <GradientStop Color="#FEB8C7AD" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <StackPanel>
+
+        <Border Margin="10"  DockPanel.Dock="Left"  CornerRadius="15" Background="#FFEFEFEF" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <StackPanel Margin="10">
             <DockPanel HorizontalAlignment="Left" Margin="15" Width="200">
-                <Label Content="Build"  Width="88"/>
+                <Label Content="Build"  Width="80"/>
                 <ComboBox controls:TextBoxHelper.Watermark="Select Build" x:Name="Builds" HorizontalAlignment="Left" Width="120">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -40,15 +42,15 @@
                 <Button Content="Create New Build" x:Name="Create"  />
             </DockPanel>
             <DockPanel DockPanel.Dock="Right"  Margin="15,0,0,15" LastChildFill="False">
-                <Border DockPanel.Dock="Left"  CornerRadius="15" Background="#FFEFEFEF" HorizontalAlignment="Left">
                     <ContentControl  x:Name="Content"  DockPanel.Dock="Top" />
-                </Border>
+                
                 <!--<Border DockPanel.Dock="Left" Margin="2,8,8,8" CornerRadius="15"  Background="#FFEFEFEF" HorizontalAlignment="Left">
                     <ContentControl  x:Name="OverviewContent" DockPanel.Dock="Top"/>
                 </Border>-->
             </DockPanel>
 
         </StackPanel>
+            </Border>
     </Grid>
 </UserControl>
 

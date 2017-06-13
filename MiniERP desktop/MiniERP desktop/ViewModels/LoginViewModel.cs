@@ -67,17 +67,17 @@ namespace MiniERP_desktop.ViewModels
 
         public void Login()
         {
-            //User user = VeryfyUser(Username, Password);
-            //if (user != null)
-            //{
-                
-                _windowManager.ShowWindow(new ShellViewModel(_container, new User(){FirstName = "Dawid"}, _eventAggregator, _dbContext));
+            User user = VeryfyUser(Username, Password);
+            if (user != null)
+            {
+
+                _windowManager.ShowWindow(new ShellViewModel(_container, user, _eventAggregator, _dbContext));
                 TryClose();
-            //}
-            //else
-            //{
+            }
+            else
+            {
                 MessageBox.Show("Błędny login lub hasło");
-            //}
+            }
         }
 
         private User VeryfyUser(string username, string password)

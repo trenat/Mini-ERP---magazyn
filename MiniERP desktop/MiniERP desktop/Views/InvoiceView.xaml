@@ -88,10 +88,6 @@
                     <ComboBox x:Name="Currency" Width="86"/>
                     <Button Content="Edit"/>
                 </DockPanel>
-                <WrapPanel>
-                    <TextBlock Style="{StaticResource TBl}" Text="Add logo"/>
-                    <CheckBox x:Name="AddLogo"/>
-                </WrapPanel>
                 <StackPanel Style="{StaticResource HideLogo}">
                     <WrapPanel>
                         <TextBlock Style="{StaticResource TBl}" Text="Logo Width"/>
@@ -103,11 +99,6 @@
                     </WrapPanel>
                 </StackPanel>
 
-                <WrapPanel>
-                    <TextBlock Style="{StaticResource TBl}"  Text="Title"/>
-                    <TextBox  x:Name="MyInvoice_Title"/>
-
-                </WrapPanel>
                 <WrapPanel>
                     <TextBlock Style="{StaticResource TBl}" Text="BillingDate"/>
                     <DatePicker  x:Name="MyInvoice_BillingDate" />
@@ -121,8 +112,21 @@
                     <TextBlock Style="{StaticResource TBl}" Text="Reference"/>
                     <TextBox x:Name="MyInvoice_Reference"/>
                 </WrapPanel>
-                <DockPanel>
-                    <TextBlock Style="{StaticResource TBl}" Text="Details"/>
+                <StackPanel>
+
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource TBl}" Text="Add logo"/>
+                        <CheckBox x:Name="AddLogo"/>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <TextBlock Style="{StaticResource TBl}"  Text="Title"/>
+                        <TextBox  x:Name="MyInvoice_Title"/>
+
+                    </WrapPanel>
+                    <DockPanel>
+
+                        <TextBlock Style="{StaticResource TBl}" Text="Details"/>
                     <Label Content="[Default]" />
                     <Button Content="Edit"/>
                 </DockPanel>
@@ -151,6 +155,8 @@
                     <TextBlock Style="{StaticResource TBl}" Text="Page Orientation"/>
                     <ComboBox x:Name="OrientOption" />
                 </WrapPanel>
+
+                </StackPanel>
 
 
 

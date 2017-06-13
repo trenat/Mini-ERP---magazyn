@@ -228,6 +228,11 @@
     <Compile Include="TabViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\AdminAccountViewModel.cs" />
+    <Compile Include="ViewModels\BuildViewModel.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="ViewModels\CreateBuildViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\InvoiceViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
@@ -238,6 +243,15 @@
     <Compile Include="ViewModels\ToolboxHelpers\ColorPickerViewModel.cs" />
     <Compile Include="Views\AdminAccountView.xaml.cs">
       <DependentUpon>AdminAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BuildView.xaml.cs">
+      <DependentUpon>BuildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateBuildView.xaml.cs">
+      <DependentUpon>CreateBuildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InvoiceView.xaml.cs">
       <DependentUpon>InvoiceView.xaml</DependentUpon>
@@ -275,6 +289,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AdminAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BuildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateBuildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

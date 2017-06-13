@@ -51,6 +51,11 @@ namespace MiniERP_desktop.ViewModels
             //});
         }
 
+        public void Home()
+        {
+            ControlContent = new HomeViewModel(_eventAggregator, _dbContext, CurrentUser);
+        }
+
         public void Settings()
         {
             MessageBox.Show("Settings");
@@ -71,7 +76,7 @@ namespace MiniERP_desktop.ViewModels
         public void Storage()
         {
             
-            ControlContent = new StorageViewModel()
+            ControlContent = new StorageViewModel(_eventAggregator, _dbContext)
             {
                 DisplayName = "Tab "// + count++
             };

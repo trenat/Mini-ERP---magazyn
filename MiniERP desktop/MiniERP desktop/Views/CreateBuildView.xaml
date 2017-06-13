@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MiniERP_desktop.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="300">
     <Grid>
         <StackPanel Margin="10">
             <DockPanel >
@@ -17,72 +17,18 @@
             </DockPanel>
             <DockPanel Margin="10,0,10,0">
                 <Label Width="160" Content="Select Addres"/>
+                <Button Content="New" Width="42" DockPanel.Dock="Right"/>
                 <ComboBox />
-                <Button Content="New" Width="40"  />
             </DockPanel>
             <DockPanel Margin="10,0,10,30">
                 <Label Content="Select Build Type"/>
                 <ComboBox Width="100" HorizontalAlignment="Right"/>
             </DockPanel>
-            <WrapPanel Width="160">    
-            <WrapPanel.Resources>
-                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                        <Setter Property="Width" Value="10"/>
-                        <Setter Property="Height" Value="10"/>
-                    <Setter Property="MinHeight" Value="2"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="Background" Value="DarkKhaki" />
-                </Style>
-            </WrapPanel.Resources>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-                <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            </WrapPanel>
+                <ContentControl x:Name="OverViewContent"/> 
+            <DockPanel>
+                <Button Width="100" Content="Accept" HorizontalAlignment="Right" Margin="15,15,5,-10"/>
+            </DockPanel>
         </StackPanel>
+
     </Grid>
 </UserControl>

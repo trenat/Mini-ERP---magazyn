@@ -228,6 +228,7 @@
     <Compile Include="TabViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\AdminAccountViewModel.cs" />
+    <Compile Include="ViewModels\BuildOverviewViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
@@ -243,6 +244,9 @@
     <Compile Include="ViewModels\ToolboxHelpers\ColorPickerViewModel.cs" />
     <Compile Include="Views\AdminAccountView.xaml.cs">
       <DependentUpon>AdminAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BuildOverviewView.xaml.cs">
+      <DependentUpon>BuildOverviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BuildView.xaml.cs">
       <DependentUpon>BuildView.xaml</DependentUpon>
@@ -289,6 +293,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AdminAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BuildOverviewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

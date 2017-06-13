@@ -18,6 +18,8 @@ namespace MobileAppV0._1
         private ListView ItemList;
         private List<string> Items;
         private Button LogoutButton;
+        private EditText FindField;
+        private TextView ErrorConnectionTextView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,6 +31,8 @@ namespace MobileAppV0._1
             FindButton = FindViewById<Button>(Resource.Id.FindButton);
             ItemList = FindViewById<ListView>(Resource.Id.ItemList);
             LogoutButton = FindViewById<Button>(Resource.Id.LogoutButton);
+            FindField = FindViewById<EditText>(Resource.Id.FindField);
+            
             Items = new List<string>();
 
             Items.Add("Item1");
@@ -52,13 +56,10 @@ namespace MobileAppV0._1
                 Finish();
             };
 
-            ItemList.ItemClick += delegate
+            ItemList.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
             {
-                Intent intent = new Intent(this, typeof(Panel_Logowania));
-                this.StartActivity(intent);
-                Finish();
+                FindField.Text = Items[e.Position];
             };
-
         }
     }
 }

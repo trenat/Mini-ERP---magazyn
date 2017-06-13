@@ -15,6 +15,7 @@ namespace MiniERP_desktop.ViewModels
         private Build _build;
         private BindableCollection<Cordinate> _buildPlacement;
         private Cordinate _selectedCordinate;
+       
 
         public BindableCollection<Cordinate> BuildPlacement
         {
@@ -35,7 +36,10 @@ namespace MiniERP_desktop.ViewModels
                 NotifyOfPropertyChange(() => SelectedCordinate);
             }
         }
-        
+
+        public void Selected()
+        {
+        }
 
         public BuildOverviewViewModel(IEventAggregator eventAggregator, ERPEntities dbContext, Build build)
         {

@@ -24,5 +24,7 @@ namespace MiniERP_desktop.Views
         {
             InitializeComponent();
         }
+
+     
     }
 }

@@ -65,8 +65,7 @@ namespace MobileAppV0._1
                         else
                         {
                             ErrorConnectionTextView.Text = "Zły login lub hasło!";
-                        }
-                        
+                        }                     
                     }
                 }
                 catch(SqlException exc)

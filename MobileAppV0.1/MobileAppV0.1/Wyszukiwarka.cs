@@ -19,7 +19,6 @@ namespace MobileAppV0._1
         private List<string> Items;
         private Button LogoutButton;
         private EditText FindField;
-        private TextView ErrorConnectionTextView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {

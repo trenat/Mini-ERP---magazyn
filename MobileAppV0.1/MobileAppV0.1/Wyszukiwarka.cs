@@ -39,23 +39,7 @@ namespace MobileAppV0._1
             LogoutButton = FindViewById<Button>(Resource.Id.LogoutButton);
             FindField = FindViewById<EditText>(Resource.Id.FindField);
             QRButton = FindViewById<Button>(Resource.Id.QRButton);
-            /*
-            Items = new List<string>();
-
-            Items.Add("Item1");
-            Items.Add("Item2");
-            Items.Add("Item1");
-            Items.Add("Item2");
-            Items.Add("Item1");
-            Items.Add("Item2");
-            Items.Add("Item1");
-            Items.Add("Item1");
-            Items.Add("Item2");
-            Items.Add("Item2");
-
-            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, Items);
-
-            ItemList.Adapter = adapter; */
+            
             LogoutButton.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Panel_Logowania));
@@ -91,7 +75,6 @@ namespace MobileAppV0._1
                             }
                             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, Items);
                             ItemList.Adapter = adapter;
-                            //  ErrorConnectionTextView.Text = "Zły login lub hasło!";
                         }
                         else
                         {

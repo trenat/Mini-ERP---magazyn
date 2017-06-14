@@ -40,18 +40,18 @@ namespace MobileAppV0._1
             FindField = FindViewById<EditText>(Resource.Id.FindField);
             QRButton = FindViewById<Button>(Resource.Id.QRButton);
             
-            LogoutButton.Click += delegate
+            LogoutButton.Click += delegate  //obsługa wylogowania
             {
                 Intent intent = new Intent(this, typeof(Panel_Logowania));
                 this.StartActivity(intent);
                 Finish();
             };
 
-            FindButton.Click += delegate
+            FindButton.Click += delegate  //obsługa szukania przedmiotów
             {
                 string ItemFinder = FindField.Text;
                 dataSet = new DataSet();
-                string selectItems = string.Format("SELECT Name, Description, Price FROM [dbo].[Item] WHERE Name LIKE '{0}%'", ItemFinder);
+                string selectItems = string.Format("SELECT Name, Description, Price FROM [dbo].[Item] WHERE Name LIKE '{0}%'", ItemFinder); //polecenie szukania po nazwie - pobranie nazwy opisu i ceny
                 try
                 {
                     using (SqlConnection connection = new SqlConnection(connectionString))
@@ -60,11 +60,11 @@ namespace MobileAppV0._1
                         SqlCommand ItemListCommand = new SqlCommand(selectItems, connection);
                         ItemListCommand.Connection = connection;
                         var dataAdapter = new SqlDataAdapter { SelectCommand = ItemListCommand };
-                        dataAdapter.Fill(dataSet);
+                        dataAdapter.Fill(dataSet); //pobranie przedmiotów i zapisanie ich do dataSet
 
                         if (dataSet.Tables[0].Rows.Count > 0)
                         {
-                            Items = new List<string>();
+                            Items = new List<string>(); //stworzenie listy produktów
                             foreach (DataRow item in dataSet.Tables[0].Rows)
                             {
                                 string Item = string.Join("", item.ItemArray);
@@ -72,23 +72,24 @@ namespace MobileAppV0._1
                                 strings = Array.FindAll(strings, (x => x != ""));
                                 Item = string.Join(" ", strings);
                                 Items.Add(Item);
+                                //konwersja nazw przedmiotów na schemat -> "NAZWA OPIS CENA"
                             }
                             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, Items);
-                            ItemList.Adapter = adapter;
+                            ItemList.Adapter = adapter;  //wyświetlenie listy przedmiotów
                         }
                         else
                         {
-                            FindButton.Text = "Nie ma";
+                            //tu kod do obsługi MSGBoxa do powiadomienia, że nic nie ma
                         }
                     }
                 }
                 catch (SqlException exc)
                 {
-                    FindButton.Text = exc.Message;
+                    //MSGBox do obsługi SQL error'ów
                 }
             };
 
-            QRButton.Click += delegate
+            QRButton.Click += delegate  //przejście do skaneru QR kodów
             {
                 Intent intent = new Intent(this, typeof(QR_Code));
                 this.StartActivity(intent);
@@ -98,7 +99,7 @@ namespace MobileAppV0._1
             ItemList.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
             {
                // FindField.Text = Items[e.Position];
-            };*/
+            };*/   //obsługa wyboru przedmiotów
         }
     }
 }

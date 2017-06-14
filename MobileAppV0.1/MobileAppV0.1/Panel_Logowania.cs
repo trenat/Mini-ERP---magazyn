@@ -29,17 +29,20 @@ namespace MobileAppV0._1
             PasswordField = FindViewById<EditText>(Resource.Id.PasswordField);
             LoginField = FindViewById<EditText>(Resource.Id.LoginField);
             LoginButton = FindViewById<Button>(Resource.Id.LoginButton);
+            //przypisanie kontrolek widoku do zmiennych
 
-            LoginButton.Click += delegate
+
+            LoginButton.Click += delegate //obsługa przycisku logowania
             {
                 string UserName = LoginField.Text;
                 string Password = PasswordField.Text;
+                //pobranie danych logowania
                 string HashPassword;
-                dataSet = new DataSet();
-                string selectLoginData = string.Format("SELECT Login, HashPassword FROM [dbo].[User] WHERE Login = '{0}'", UserName);
+                dataSet = new DataSet(); 
+                string selectLoginData = string.Format("SELECT Login, HashPassword FROM [dbo].[User] WHERE Login = '{0}'", UserName); //polecenie pobierające login i hasło
                 try
                 {
-                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    using (SqlConnection connection = new SqlConnection(connectionString))  //łączenie z bazą danych
                     {
                         connection.Open();
                         SqlCommand LoginCommand = new SqlCommand(selectLoginData, connection);
@@ -47,35 +50,36 @@ namespace MobileAppV0._1
                         var dataAdapter = new SqlDataAdapter { SelectCommand = LoginCommand };
                         dataAdapter.Fill(dataSet);
 
-                        if(dataSet.Tables[0].Rows.Count==1)
+                        if(dataSet.Tables[0].Rows.Count==1) //sprawdzenie zgodności loginu
                         {
-                            HashPassword = dataSet.Tables[0].Rows[0]["HashPassword"].ToString();
-                            if (VerifyHashedPassword(HashPassword, Password))
+                            HashPassword = dataSet.Tables[0].Rows[0]["HashPassword"].ToString(); //wyłuskanie hasła z pobranych danych
+                            if (VerifyHashedPassword(HashPassword, Password)) //sprawdzenie zgodności hasła
                             {
                                 LoginData.CurrentLogin = UserName;
                                 Intent intent = new Intent(this, typeof(Wyszukiwarka));
                                 this.StartActivity(intent);
                                 Finish();
+                                //otworzenie okna wyszukiwarki
                             }
                             else
                             {
-                                BadLogin();
+                                BadLogin();  //wyświetlenie komunikatu o błędnych danych logowania
                             }
                         }
                         else
                         {
-                            BadLogin();
+                            BadLogin(); //wyświetlenie komunikatu o błędnych danych logowania
                         }                     
                     }
                 }
                 catch(SqlException exc)
                 {
-                    SqlError(exc.Message);
+                    SqlError(exc.Message); //obsługa błędów komunikacji z bazą danych, np. brak połączenia z internetem
                 }
             };
         }
 
-        public static bool VerifyHashedPassword(string hashedPassword, string password)
+        public static bool VerifyHashedPassword(string hashedPassword, string password)  //weryfikacja hasła użytkownika
         {
             byte[] buffer4;
             if (hashedPassword == null)
@@ -102,7 +106,7 @@ namespace MobileAppV0._1
             return AreHashesEqual(buffer3, buffer4);
         }
 
-        private static bool AreHashesEqual(byte[] firstHash, byte[] secondHash)
+        private static bool AreHashesEqual(byte[] firstHash, byte[] secondHash) //porównanie haszów
         {
             int _minHashLength = firstHash.Length <= secondHash.Length ? firstHash.Length : secondHash.Length;
             var xor = firstHash.Length ^ secondHash.Length;
@@ -111,7 +115,7 @@ namespace MobileAppV0._1
             return 0 == xor;
         }
 
-        void BadLogin()
+        void BadLogin() //funkcja komunikatu o błędnych danych logowania
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog error = builder.Create();
@@ -121,7 +125,7 @@ namespace MobileAppV0._1
             error.Show();
         }
 
-        void SqlError(string exception)
+        void SqlError(string exception) //funkcja komunikatu o błędzie z połączeniem; pobiera parametr błędu SqlException i go wyświetla
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog error = builder.Create();

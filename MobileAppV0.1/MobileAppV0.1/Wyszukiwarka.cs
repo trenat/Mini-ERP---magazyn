@@ -83,7 +83,6 @@ namespace MobileAppV0._1
                             Items = new List<string>();
                             foreach (DataRow item in dataSet.Tables[0].Rows)
                             {
-
                                 string Item = string.Join("", item.ItemArray);
                                 var strings = Item.Split(' ');
                                 strings = Array.FindAll(strings, (x => x != ""));

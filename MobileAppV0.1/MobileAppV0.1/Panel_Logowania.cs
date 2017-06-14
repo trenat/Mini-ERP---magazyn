@@ -15,7 +15,6 @@ namespace MobileAppV0._1
         private Button LoginButton;
         private EditText LoginField;
         private EditText PasswordField;
-        private TextView ErrorConnectionTextView;
         private string connectionString = "data source=eadierp.database.windows.net;initial catalog=ERP;persist security info=True;user id=admin1;password=Ab123456;MultipleActiveResultSets=True;App=EntityFramework&quot;";
         private DataSet dataSet;
 
@@ -30,7 +29,6 @@ namespace MobileAppV0._1
             PasswordField = FindViewById<EditText>(Resource.Id.PasswordField);
             LoginField = FindViewById<EditText>(Resource.Id.LoginField);
             LoginButton = FindViewById<Button>(Resource.Id.LoginButton);
-            ErrorConnectionTextView = FindViewById<TextView>(Resource.Id.ErrorConnectionTextView);
 
             LoginButton.Click += delegate
             {
@@ -60,17 +58,19 @@ namespace MobileAppV0._1
                                 Finish();
                             }
                             else
-                                ErrorConnectionTextView.Text = "Zły login lub hasło!";
+                            {
+                                BadLogin();
+                            }
                         }
                         else
                         {
-                            ErrorConnectionTextView.Text = "Zły login lub hasło!";
+                            BadLogin();
                         }                     
                     }
                 }
                 catch(SqlException exc)
                 {
-                    ErrorConnectionTextView.Text = exc.Message;
+                    SqlError(exc.Message);
                 }
             };
         }
@@ -109,6 +109,26 @@ namespace MobileAppV0._1
             for (int i = 0; i < _minHashLength; i++)
                 xor |= firstHash[i] ^ secondHash[i];
             return 0 == xor;
+        }
+
+        void BadLogin()
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog error = builder.Create();
+            error.SetTitle("Błąd!");
+            error.SetMessage("Zły login lub hasło!");
+            error.SetButton("OK", (s, ev) => { });
+            error.Show();
+        }
+
+        void SqlError(string exception)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog error = builder.Create();
+            error.SetTitle("Błąd!");
+            error.SetMessage(exception);
+            error.SetButton("OK", (s, ev) => { });
+            error.Show();
         }
     }
 }

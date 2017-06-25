@@ -18,39 +18,59 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Border Margin="10"  DockPanel.Dock="Left"  CornerRadius="15" Background="#FFEFEFEF" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <StackPanel Margin="10">
-            <DockPanel HorizontalAlignment="Left" Margin="15" Width="200">
-                <Label Content="Build"  Width="80"/>
-                <ComboBox controls:TextBoxHelper.Watermark="Select Build" x:Name="Builds" HorizontalAlignment="Left" Width="120">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.ID}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <cal:ActionMessage MethodName="BuildSelectionChanged">
-                                <cal:Parameter Value="{Binding ElementName=Builds,Path=SelectedItem}"></cal:Parameter>
-                            </cal:ActionMessage>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </ComboBox>
-            </DockPanel>
+        <DockPanel>
+            <Border Margin="10"  DockPanel.Dock="Left"  CornerRadius="15" Background="#FFEFEFEF" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <StackPanel Margin="10">
+                    <DockPanel HorizontalAlignment="Center" Margin="15" Width="200">
+                        <Label Content="Build"  Width="80"/>
+                        <ComboBox controls:TextBoxHelper.Watermark="Select Build" x:Name="Builds" HorizontalAlignment="Left" Width="120">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.ID}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <cal:ActionMessage MethodName="BuildSelectionChanged">
+                                        <cal:Parameter Value="{Binding ElementName=Builds,Path=SelectedItem}"></cal:Parameter>
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </DockPanel>
 
-            <DockPanel HorizontalAlignment="Left" Width="200" Margin="15,0,0,15">
-                <Button Content="Create New Build" x:Name="Create"  />
-            </DockPanel>
-            <DockPanel DockPanel.Dock="Right"  Margin="15,0,0,15" LastChildFill="False">
-                    <ContentControl  x:Name="Content"  DockPanel.Dock="Top" />
-                
-                <!--<Border DockPanel.Dock="Left" Margin="2,8,8,8" CornerRadius="15"  Background="#FFEFEFEF" HorizontalAlignment="Left">
+                    <DockPanel HorizontalAlignment="Left" Width="200" Margin="15,0,0,15">
+                        <Button Content="Create New Build" x:Name="Create"  />
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right"  Margin="15,0,0,15" LastChildFill="False">
+                        <ContentControl  x:Name="Content"  DockPanel.Dock="Top" />
+
+                        <!--<Border DockPanel.Dock="Left" Margin="2,8,8,8" CornerRadius="15"  Background="#FFEFEFEF" HorizontalAlignment="Left">
                     <ContentControl  x:Name="OverviewContent" DockPanel.Dock="Top"/>
                 </Border>-->
-            </DockPanel>
+                    </DockPanel>
 
-        </StackPanel>
+                </StackPanel>
             </Border>
+            <Border Margin="10"  DockPanel.Dock="Left"  CornerRadius="15" Background="#FFEFEFEF" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <StackPanel Margin="15">
+                    <DockPanel>
+                        <Label  DockPanel.Dock ="Top" Content="Items:"/>
+                        <Button Margin="0,50,0,-10" Content="Add new" x:Name="AddItem" DockPanel.Dock="Bottom"></Button>
+                        <DataGrid MaxWidth="400" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" DockPanel.Dock="Bottom" Width="300" x:Name="Items">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="Name" />
+                                <DataGridTextColumn Binding="{Binding Description}"  Header="Description" />
+                                <DataGridTextColumn Binding="{Binding Price}" Header="Price" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                    <ContentControl x:Name="NewItemsContent" Margin="10" Width="300" >
+
+                    </ContentControl>
+                </StackPanel>
+            </Border>
+        </DockPanel>
     </Grid>
 </UserControl>
 

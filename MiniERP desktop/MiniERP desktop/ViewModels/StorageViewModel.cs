@@ -16,7 +16,18 @@ namespace MiniERP_desktop.ViewModels
         private BindableCollection<Build> _builds;
         private Build _build;
         private object _content;
+        private BindableCollection<Item> _items;
+        private object _newItemsContent;
 
+        public object NewItemsContent
+        {
+            get => _newItemsContent;
+            set
+            {
+                _newItemsContent = value;
+                NotifyOfPropertyChange(() => NewItemsContent);
+            }
+        }
         public Build Build
         {
             get => _build;
@@ -34,6 +45,16 @@ namespace MiniERP_desktop.ViewModels
             {
                 _builds = value;
                 NotifyOfPropertyChange(() => Builds);
+            }
+        }
+
+        public BindableCollection<Item> Items
+        {
+            get => _items;
+            set
+            {
+                _items = value;
+                NotifyOfPropertyChange(() => Items);
             }
         }
 
@@ -60,6 +81,10 @@ namespace MiniERP_desktop.ViewModels
             Content = new BuildViewModel(_eventAggregator, _dbContext, build);
         }
 
+        public void AddItem()
+        {
+            NewItemsContent = new NewItemsViewModel(_eventAggregator,_dbContext);
+        }
 
         public StorageViewModel(IEventAggregator eventAggregator, ERPEntities dbContext)
         {
@@ -69,6 +94,11 @@ namespace MiniERP_desktop.ViewModels
             Builds.Add(new Build() { ID = 2 });
             Builds.Add(new Build() { ID = 3 });
             _dbContext = dbContext;
+            Items = new BindableCollection<Item>();
+            Items.Add(new Item() { Name = "DR324", Description = "Piłka do drewna", Price = 40 });
+            Items.Add(new Item() { Name = "DR324", Description = "Piłka do metalu", Price = 20 });
+            Items.Add(new Item() { Name = "DR324", Description = "Piłka do kamieni", Price = 50 });
+            //     Items = new BindableCollection<Item>(_dbContext.Item.Select(x => x).ToList());
         }
 
     }

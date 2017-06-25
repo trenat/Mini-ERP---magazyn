@@ -46,6 +46,11 @@ namespace MiniERP_desktop.ViewModels
             _eventAggregator = eventAggregator;
             _dbContext = dbContext;
             _build = build;
+
+            string xd = "Kopa ma ta kawa        ";
+            var r = xd.Split(' ');
+            String.Join(" ", r);
+
         }
     }
 }

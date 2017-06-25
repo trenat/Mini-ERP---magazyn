@@ -227,6 +227,7 @@
     </Compile>
     <Compile Include="TabViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\AddItemsViewModel.cs" />
     <Compile Include="ViewModels\AdminAccountViewModel.cs" />
     <Compile Include="ViewModels\BuildOverviewViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs">
@@ -236,12 +237,16 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\InvoiceViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\NewItemsViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="ViewModels\ReportsViewModel.cs" />
     <Compile Include="ViewModels\SearchUserViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StorageViewModel.cs" />
     <Compile Include="ViewModels\ToolboxHelpers\ColorPickerViewModel.cs" />
+    <Compile Include="Views\AddItemsView.xaml.cs">
+      <DependentUpon>AddItemsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AdminAccountView.xaml.cs">
       <DependentUpon>AdminAccountView.xaml</DependentUpon>
     </Compile>
@@ -262,6 +267,9 @@
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewItemsView.xaml.cs">
+      <DependentUpon>NewItemsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OverviewView.xaml.cs">
       <DependentUpon>OverviewView.xaml</DependentUpon>
@@ -292,6 +300,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddItemsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AdminAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -317,6 +329,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewItemsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

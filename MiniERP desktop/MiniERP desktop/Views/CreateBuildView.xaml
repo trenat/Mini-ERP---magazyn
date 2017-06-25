@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:MiniERP_desktop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="300">
-    <Grid>
+    <Grid Margin="-10">
+        <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="15" Margin="0,0,10,0">
         <StackPanel Margin="10">
             <DockPanel >
                 <Label Content="Tworzenie Budynku"/>
@@ -16,19 +17,20 @@
                 <ComboBox Width="100" HorizontalAlignment="Right"/>
             </DockPanel>
             <DockPanel Margin="10,0,10,0">
-                <Label Width="160" Content="Select Addres"/>
-                <Button Content="New" Width="42" DockPanel.Dock="Right"/>
-                <ComboBox />
+                <Label  Content="Select Addres"/>
+                <Button DockPanel.Dock="Right" Content="New" Width="42" />
+                <ComboBox   DockPanel.Dock="Right"/>
+                <Label/>
             </DockPanel>
             <DockPanel Margin="10,0,10,30">
                 <Label Content="Select Build Type"/>
                 <ComboBox Width="100" HorizontalAlignment="Right"/>
             </DockPanel>
                 <ContentControl x:Name="OverViewContent"/> 
-            <DockPanel>
+            <DockPanel Margin="0,-10,0,10">
                 <Button Width="100" Content="Accept" HorizontalAlignment="Right" Margin="15,15,5,-10"/>
             </DockPanel>
         </StackPanel>
-
+        </Border>
     </Grid>
 </UserControl>
